@@ -1,24 +1,32 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Zest
+ * Zest
+ * 
+ * Application class
+ * It init Router class, get the configuration and run the answered Controller.
+ * Finally, display the response.
  *
- * @author Toss
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
 class Zest
 {
 
+    /**
+     * Zest Instance
+     * @var \self
+     */
     private static $instance;
     private $config;
     private $routes = [];
     private $router;
 
+    /**
+     * Return Zest Instance
+     * @return \self
+     */
     public static function getInstance()
     {
         if (!isset(self::$instance))

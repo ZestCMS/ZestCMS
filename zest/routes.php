@@ -1,15 +1,20 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * routes
+ * 
+ * Routes are core system to dispatch user from requested URI
+ *
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
 
 return [
+    // Homepage : list all articles
     '/' => ['ArticlesController', 'allArticles'],
+    // List articles with pagination
     '/page<#page>' => ['ArticlesController', 'allArticles'],
-    '/articles/<:article_name>'=> array('ArticlesController', 'viewArticle'),
-   // '/article/?<?#article_id>' => array('Home', 'article'),
-
+    // Read a specified article by its encoded title
+    '/articles/<:article_name>'=> ['ArticlesController', 'viewArticle'],
 ];

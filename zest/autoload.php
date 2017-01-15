@@ -1,13 +1,17 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * autoload
+ * 
+ * Autoload all class files in different system folders
+ *
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
-
 function __autoload($classname)
 {
+    
     $paths = [
         CORE_PATH . 'core',
         CORE_PATH . 'controllers',

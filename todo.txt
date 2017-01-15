@@ -1,0 +1,10 @@
+Features needed in v 0.1 : 
+
+- Homepage with all articles
+- Read an article
+- 404 Page when content is not found
+- Admin panel :
+  - Login / Logout
+  - List all articles
+  - Delete an article
+  - Write an article in markdown

@@ -1,29 +1,67 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of ArticleEntity
+ * ArticleEntity
+ * 
+ * Get and create articles from files or data
  *
- * @author Toss
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
 class ArticleEntity
 {
 
+    /**
+     * Article ID
+     * @var int ID 
+     */
     public $id;
+    
+    /**
+     * Article Content
+     * @var string
+     */
     public $content;
+    
+    /**
+     * Article Title
+     * @var string
+     */
     public $title;
+    
+    /**
+     * Article Timestamp creation
+     * @var int
+     */
     public $creationDate;
+    
+    /**
+     * Article encoded title, used to access this article
+     * @var string
+     */
     public $encoded_title;
     
+    /**
+     * Article exist ?
+     * true  : Article is already written in file
+     * false : Article has no file
+     * @var boolean
+     */
     public $exist = false;
     
+    /**
+     * Articles files path
+     * @var string
+     */
     private static $postsPath;
 
+    /**
+     * Get an article by his encoded title
+     * 
+     * @param string Article encoded title
+     * @return \self
+     */
     public static function getArticleByName($name)
     {
         if (!isset(self::$postsPath))
@@ -36,6 +74,13 @@ class ArticleEntity
         return $article;
     }
     
+    /**
+     * Get many articles, ordered by timestamp
+     * 
+     * @param int       First item to get
+     * @param int       Number of articles to get 
+     * @return array    Array with Articles
+     */
     public static function getArticlesByTimestamp($first_item, $number)
     {
         if (!isset(self::$postsPath))
@@ -62,6 +107,11 @@ class ArticleEntity
         return $articles;
     }
 
+    /**
+     * Returns the number of articles contained in the site
+     * 
+     * @return int  Number of articles
+     */
     public static function countAllArticles()
     {
         if (!isset(self::$postsPath))
@@ -72,11 +122,20 @@ class ArticleEntity
         return count($files);
     }
     
+    /**
+     * Init the Articles Path
+     */
     private static function initPaths()
     {
         self::$postsPath = CONTENT_PATH;
     }
     
+    /**
+     * Get an article with his complete filename
+     * 
+     * @param string    Filename
+     * @return \self    
+     */
     private static function loadByFilename($filename)
     {
         $xml = new XMLFile($filename);
