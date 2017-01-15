@@ -1,0 +1,124 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12 janv. 2017, 18:40:19
+    Author     : Toss
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    background-color: #eee;
+    font : 14px/1.8em 'Open Sans', Helvetica, Arial, Helvetica, sans-serif;
+}
+
+#header-wrapper {
+    background-color: #444;
+    color: #fff;
+    padding: 15px;
+    margin:0;
+}
+
+#header {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+}
+
+#header a {
+    color:#fff;
+}
+
+#content-wrapper {
+    margin:0;
+}
+
+#content {
+    max-width: 1080px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding:25px;
+}
+
+#site_name {
+    align-self: center;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+a, a:visited {
+    color: #2EAE9B;
+    text-decoration: none;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+a:hover, a:active {
+    color: #000;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+    line-height: 1.2em;
+    margin-bottom: 0.6em;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.7em;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-top: 2em;
+}
+
+.pagination ul{
+    list-style-type:none;
+}
+
+.pagination ul li{
+    display: inline-block;
+    margin : 8px 10px;
+}
+
+.pagination ul li a{
+    padding:5px 10px;
+    display: block;
+    background-color: #2EAE9B;
+    color:#FFF;
+}
+
+.pagination ul li a:hover, .pagination ul li a:active {
+    color:#444;
+}
