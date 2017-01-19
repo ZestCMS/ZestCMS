@@ -96,6 +96,7 @@ class ArticleEntity
             $art[$parts[1]] = $file;
             
         }
+        // Sort by timestamp DESC
         krsort($art, SORT_NUMERIC);
         $art = array_slice($art, $first_item, $number, true);
         $articles = [];
@@ -122,6 +123,26 @@ class ArticleEntity
         return count($files);
     }
     
+    /**
+     * Get all articles
+     * 
+     * @return array    Array with Articles
+     */
+    public static function getAllArticles()
+    {
+        if (!isset(self::$postsPath))
+        {
+            self::initPaths();
+        }
+        $files = glob(self::$postsPath . DS . '*-*-*.xml');
+        $art = [];
+        foreach ($files as $file)
+        {
+            $art[] = self::loadByFilename($file);
+        }
+        return $art;
+    }
+
     /**
      * Init the Articles Path
      */

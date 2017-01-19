@@ -38,11 +38,17 @@ class Zest
 
     private function __construct()
     {
+        session_start();
         $this->config = parse_ini_file(CORE_PATH . 'config.ini', true);
 
         $this->initRouter();
+        $this->initGlobals();
     }
 
+    /**
+     * Run the framework
+     * Test all routes, run a controller and display returned response
+     */
     public function run()
     {
         foreach ($this->routes as $pattern => $callback)
@@ -55,21 +61,40 @@ class Zest
         $this->displayResponse($response);
     }
 
+    /**
+     * Get the site config as array
+     * 
+     * @return array
+     */
     public function getSiteConfig()
     {
         return $this->config['site'];
     }
     
+    /**
+     * Get the framework config as array
+     * 
+     * @return array
+     */
     public function getZestConfig()
     {
         return $this->config['zest'];
     }
 
+    /**
+     * Get the site root url, defined in config.ini
+     * 
+     * @return string Url
+     */
     public function getRootUrl()
     {
         return $this->config['zest']['url'];
-    }
+    }    
 
+    /**
+     * Initialize Router, load routes and define the defaut_route,
+     * used if no route is matching the requested URI
+     */
     private function initRouter()
     {
         $this->router = new Router();
@@ -78,9 +103,20 @@ class Zest
         $this->routes = require CORE_PATH . 'routes.php';
     }
 
+    /**
+     * Display the response returned by controller
+     */
     private function displayResponse($response)
     {
         $response->output();
+    }
+    
+    /**
+     * Add all site and framework globals to the templates
+     */
+    private function initGlobals()
+    {
+        Template::addGlobal('ROOT', $this->getRootUrl());
     }
 
 }

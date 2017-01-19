@@ -1,33 +1,46 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Response
+ * Response
+ * 
+ * Container to inject templates
+ * When Response is returned on Zest class, output() is called
  *
- * @author Toss
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
 class Response
 {
+    /** @var string     Page title */
     protected $title;
     
+    /** @var array      Templates collection to display */
     protected $tpl = [];
 
-
+    /**
+     * Set the page title
+     * 
+     * @param string Page title
+     */
     public function setTitle($title)
     {
         $this->title = $title;
     }
     
+    /**
+     * Add a template to the collection to display
+     * 
+     * @param \Template Template to display
+     */
     public function addTemplate(\Template $template)
     {
         $this->tpl[] = $template;
     }
     
+    /**
+     * Display the response
+     */
     public function output()
     {
         $site_config = Zest::getInstance()->getSiteConfig();

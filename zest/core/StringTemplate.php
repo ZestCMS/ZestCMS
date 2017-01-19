@@ -1,38 +1,41 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Template
+ * StringTemplate
+ * 
+ * Simple way to create a template from a string
  *
- * @author Toss
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
 class StringTemplate extends Template
 {
-    
-    protected $content;
-    protected $data = [];
 
+    /**
+     * Create a template from a string
+     * 
+     * @param string Template content
+     */
     public function __construct($content)
     {
         $this->content = $content;
     }
 
+    /**
+     * Return the parsed template content
+     * 
+     * @return string Parsed content
+     */
     public function output()
     {
-        
-        $this->content       = str_replace("{{ROOT}}", Zest::getInstance()->getRootUrl(), $this->content);
-        foreach ($this->data as $key => $value)
-        {
-            $tagToReplace = "{{" . $key . "}}";
-            $output       = str_replace($tagToReplace, $value, $this->content);
-        }
-
-        return $this->content;
+        ob_start();
+        $this->get_content();
+        $this->addGlobalsToVars();
+        $this->parse();
+        // Uncomment the next line to see parsed template
+        //file_put_contents($this->file . '.cache.php', $this->content);
+        eval('?>' . $this->content);
+        return ob_get_clean();
     }
-
 }
