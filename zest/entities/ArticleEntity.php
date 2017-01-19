@@ -43,6 +43,12 @@ class ArticleEntity
     public $encoded_title;
     
     /**
+     * Article Url, defined by his encoded_title
+     * @var string Url
+     */
+    public $url;
+    
+    /**
      * Article exist ?
      * true  : Article is already written in file
      * false : Article has no file
@@ -166,6 +172,7 @@ class ArticleEntity
         $article->content = $xml->getUniqueTag('content');
         $article->encoded_title = $xml->getUniqueTag('encoded_title');
         $article->title = $xml->getUniqueTag('title');
+        $article->url = Zest::getInstance()->getRootUrl() .'articles/'. $article->encoded_title;
         return $article;
     }
     

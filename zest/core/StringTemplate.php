@@ -30,7 +30,6 @@ class StringTemplate extends Template
     public function output()
     {
         ob_start();
-        $this->get_content();
         $this->addGlobalsToVars();
         $this->parse();
         // Uncomment the next line to see parsed template

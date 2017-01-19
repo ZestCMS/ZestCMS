@@ -17,9 +17,8 @@ class ArticlesController extends Controller
     {
         $article = ArticleEntity::getArticleByName($article_name);
         
-        $tpl = new Template('article.tpl');
-        $tpl->set('title', $article->title);
-        $tpl->set('content', $article->content);
+        $tpl = new Template('view_article.tpl');
+        $tpl->set('article', $article);
         $response = new Response();
         $response->setTitle($this->site_config['title']);
         $response->addTemplate($tpl);
@@ -41,18 +40,15 @@ class ArticlesController extends Controller
         $response = new Response();
         $response->setTitle($this->site_config['title']);
         
-        foreach ($articles as $art)
-        {
-            $tpl = new Template('article.tpl');
-            $tpl->set('title', $art->title);
-            $tpl->set('content', ($art->content));
-            $tpl->set('url', $this->getZest()->getRootUrl() .'articles/'. $art->encoded_title);
-            $response->addTemplate($tpl);
-        }
+        $tpl = new Template('articles_list.tpl');
+
+        $tpl->set('articles', $articles);
+        $response->addTemplate($tpl);
+        
         if ($pagination->needPagination())
         {
             $response->addTemplate(new StringTemplate($pagination->output()));
         }
         return $response;
-    }
+    } 
 }

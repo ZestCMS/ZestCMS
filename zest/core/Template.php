@@ -100,6 +100,7 @@ class Template
     /**
      * Parse template
      * Allowed tags :
+     * {# This is multiline allowed comments #}
      * {% NOPARSE %} ... {% ENDNOPARSE %}
      * {% IF MY_VAR %} {% IF MY_VAR !== 25 %} ... {% ELSE %} ... {% ENDIF %}
      * {{ MY_VAR }}
@@ -107,6 +108,7 @@ class Template
      */
     protected function parse()
     {
+        $this->content = preg_replace('#\{\#(.*)\#\}#isU', '<?php /* $1 */ ?>', $this->content);
         $this->content = preg_replace_callback('#\{\% *NOPARSE *\%\}(.*)\{\% *ENDNOPARSE *\%\}#isU', 'self::_no_parse', $this->content);
         $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *([\=|\<|\>|\!]{2,3}) *([0-9a-z_\.\-]+) *\%\}#i', 'self::_complexe_if_replace' , $this->content);
         $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *\%\}#i', 'self::_simple_if_replace', $this->content);
@@ -115,11 +117,12 @@ class Template
         $this->content = preg_replace('#\{\% *ENDFOR *\%\}#i', '<?php endforeach; ?>', $this->content);
         $this->content = preg_replace('#\{\% *ENDIF *\%\}#i', '<?php } ?>', $this->content);
         $this->content = preg_replace('#\{\% *ELSE *\%\}#i', '<?php }else{ ?>', $this->content);
+        $this->content = str_replace('#/§&µ&§;#', '{', $this->content);
     }
 
     protected function _no_parse($matches)
     {
-        return htmlentities($matches[1]);
+        return str_replace('{', '#/§&µ&§;#', $matches[1]);
     }
     
     protected function _show_var($name)
@@ -221,7 +224,7 @@ class Template
             if (isset($parent->$var))
             {
                 // Attribut
-                return $parent->var;
+                return $parent->$var;
             }
             return '';
         }

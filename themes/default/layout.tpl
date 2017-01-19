@@ -4,9 +4,8 @@
     <meta charset=utf-8 />
     <title>{{page_title}}</title>
     <link rel="stylesheet" href="{{ROOT}}themes/default/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
-    
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
     <header id="header-wrapper">
