@@ -22,6 +22,7 @@
     </section>
     <footer id="footer-wrapper">
         <div id="footer">
+            Powered by <a href="https://github.com/MaxenceCauderlier/ZestCMS">Zest</a> • © 2017 {{site_name}} • 
             {% if IS_ADMIN %}
                 <a href="{{ROOT}}admin">Admin Panel</a><br/>
                 <a href="{{ROOT}}logout">Logout</a>
