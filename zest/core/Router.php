@@ -368,8 +368,11 @@ class Router
     protected function __get_clean_url($url)
     {
         // The request url might be /project/index.php, this will remove the /project part
-        $url = str_replace(dirname($_SERVER['SCRIPT_NAME']), '', $url);
-
+        // Replace only if script is on a subfolder
+        if (dirname($_SERVER['SCRIPT_NAME']) !== '/' && dirname($_SERVER['SCRIPT_NAME']) !== '')
+        {
+            $url = str_replace(dirname($_SERVER['SCRIPT_NAME']), '', $url);
+        }
         // Remove the query string if there is one
         $query_string = strpos($url, '?');
 
@@ -386,7 +389,6 @@ class Router
 
         // Make sure the URI ends in a /
         $url = rtrim($url, '/') . '/';
-
         // Replace multiple slashes in a url, such as /my//dir/url
         $url = preg_replace('/\/+/', '/', $url);
 
