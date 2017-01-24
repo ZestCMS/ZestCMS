@@ -77,7 +77,7 @@ class Template
     {
         if (!file_exists($this->file))
         {
-            return "Error loading template file ($this->file).";
+            return "Error loading template file ($this->file).<br/>";
         }
         ob_start();
         $this->get_content();

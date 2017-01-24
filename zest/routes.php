@@ -17,4 +17,14 @@ return [
     '/page<#page>' => ['ArticlesController', 'allArticles'],
     // Read a specified article by its encoded title
     '/articles/<:article_name>'=> ['ArticlesController', 'viewArticle'],
+    
+    '/login' => ['LoginController', 'login'],
+    '/logout' => ['LoginController', 'logout'],
+    '/admin' => ['AdminHomepageController', 'allArticles'],
+    '/admin/write' =>['AdminWriteController', 'new_article'],
+    '/admin/write/getencodedtitle' =>['AdminWriteController', 'getEncodedTitle'],
+    '/admin/write/getpreview' =>['AdminWriteController', 'getPreview'],
+    '/admin/write/edit/<#id>' => ['AdminWriteController', 'edit_article'],
+    '/admin/delete/<#id>' => ['AdminHomepageController', 'deleteArticle'],
+
 ];

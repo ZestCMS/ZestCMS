@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ROOT}}themes/default/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <base href="{{ROOT}}" />
 </head>
 <body>
     <header id="header-wrapper">
@@ -21,7 +22,12 @@
     </section>
     <footer id="footer-wrapper">
         <div id="footer">
-            
+            {% if IS_ADMIN %}
+                <a href="{{ROOT}}admin">Admin Panel</a><br/>
+                <a href="{{ROOT}}logout">Logout</a>
+            {% else %}
+                <a href="{{ROOT}}login">Login</a>
+            {% endif %}
         </div>
     </footer>
 </body>

@@ -117,6 +117,25 @@ class Zest
     private function initGlobals()
     {
         Template::addGlobal('ROOT', $this->getRootUrl());
+        if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true)
+        {
+            Template::addGlobal('IS_ADMIN', false);
+        }
+        else
+        {
+            Template::addGlobal('IS_ADMIN', true);
+        }
+    }
+    
+    /**
+     * Show the Page 404 and stop the script
+     */
+    public function call404Error()
+    {
+        $Error = new Page404Controller();
+        $response = $Error->error404();
+        $this->displayResponse($response);
+        exit();
     }
 
 }

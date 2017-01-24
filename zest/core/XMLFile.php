@@ -17,7 +17,7 @@ class XMLFile
     /** @var bool   If the file exist or not */
     private $file_exist = false;
     
-    /** @var string File content */
+    /** @var \DOMDocument File */
     private $xml;
     
     /**
@@ -29,7 +29,7 @@ class XMLFile
     public function __construct($filename)
     {
         $this->filename = $filename;
-        $xml = new DOMDocument();
+        $xml = new DOMDocument('1.0', 'UTF-8');
         $xml->preserveWhiteSpace = true;
         $xml->formatOutput = true;
         if (is_file($filename))
@@ -50,5 +50,19 @@ class XMLFile
     public function getUniqueTag($tag)
     {
         return $this->xml->getElementsByTagName($tag)->item(0)->nodeValue;
+    }
+    
+    /**
+     * 
+     * @return \DOMDocument
+     */
+    public function &getXML()
+    {
+        return $this->xml;
+    }
+    
+    public function save()
+    {
+        $this->xml->save($this->filename);
     }
 }

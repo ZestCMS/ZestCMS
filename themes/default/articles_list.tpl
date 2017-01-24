@@ -2,7 +2,7 @@
     <div class="article">
         <h2><a href="{{article.url}}">{{article.title}}</a></h2>
         <div class="article-content">
-            {{article.content}}
+            {{article.htmlContent}}
         </div>
     </div>
 {%ENDFOR%}

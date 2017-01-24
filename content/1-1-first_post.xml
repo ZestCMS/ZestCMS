@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
 <root>
-    <id>1</id>
-    <creation>1</creation>
-    <title><![CDATA[First Post]]></title>
-    <encoded_title>first_post</encoded_title>
-    <content><![CDATA[Congraculations, your Zest Blog is well configurated !]]></content>
+  <id>1</id>
+  <creation>1</creation>
+  <title><![CDATA[First Post]]></title>
+  <encoded_title>first_post</encoded_title>
+  <content><![CDATA[Congraculations, your Zest Blog is well configurated !]]></content>
 </root>

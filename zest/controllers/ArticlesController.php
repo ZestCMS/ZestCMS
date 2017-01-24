@@ -18,6 +18,11 @@ class ArticlesController extends Controller
         $article = ArticleEntity::getArticleByName($article_name);
         
         $tpl = new Template('view_article.tpl');
+        if (!$article)
+        {
+            // Article seem doesn't exist
+            $this->getZest()->call404Error();
+        }
         $tpl->set('article', $article);
         $response = new Response();
         $response->setTitle($this->site_config['title']);
