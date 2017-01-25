@@ -81,6 +81,11 @@ pre {
     word-wrap: break-word;
 }
 
+img {
+    max-width: 100%;
+    overflow: hidden;
+}
+
 a, a:visited {
     color: #2EAE9B;
     text-decoration: none;
