@@ -1,0 +1,241 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12 janv. 2017, 18:40:19
+    Author     : Toss
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+}
+
+body {
+    background-color: #eee;
+    font : 14px/1.8em 'Open Sans', Helvetica, Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#header-wrapper {
+    background-color: #444;
+    color: #fff;
+    padding: 15px;
+    margin:0;
+}
+
+#header {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+}
+
+#header a {
+    color:#fff;
+}
+
+#content-wrapper {
+    margin:0;
+}
+
+#content {
+    max-width: 1080px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding:25px;
+}
+
+#footer-wrapper {
+    background-color: #444;
+    color: #fff;
+    padding: 15px;
+    margin:0;
+}
+
+#footer {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+#footer a {
+    color:#2EAE9B;
+}
+
+#site_name {
+    align-self: center;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+img {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+a, a:visited {
+    color: #2EAE9B;
+    text-decoration: none;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+a:hover, a:active {
+    color: #000;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+    line-height: 1.2em;
+    margin: 0.6em;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.7em;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-top: 2em;
+}
+
+.pagination ul{
+    list-style-type:none;
+}
+
+.pagination ul li{
+    display: inline-block;
+    margin : 8px 10px;
+}
+
+.pagination ul li a{
+    padding:5px 10px;
+    display: block;
+    background-color: #2EAE9B;
+    color:#FFF;
+}
+
+.pagination ul li a:hover, .pagination ul li a:active {
+    color:#444;
+}
+
+ul.tabs {
+    list-style-type:none;
+    margin:8px;
+}
+
+ul.tabs li {
+    margin:0;
+    padding:0;
+    display: inline-block;
+}
+ul.tabs li a{
+    padding: 8px 15px;
+}
+
+ul.tabs li a.active {
+    border-bottom:3px solid #2EAE9B;
+    color:#444;
+}
+
+.tabbed {
+    padding:10px;
+    border:1px solid #EEE;
+}
+label {
+    display:inline-block;
+    width:40%;
+    text-align: right;
+    vertical-align: middle;
+    padding:18px;
+}
+
+input, textarea {
+    padding: .5em .6em;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+textarea {
+    width:98%;
+    height:20em;
+    margin-left:1%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th {
+    background-color: #6cc6b9;
+    color:#FFF;
+    padding: 1em 2em;
+}
+
+td {
+    text-align: center;
+    padding:0.6em 0.8em;
+}
+
+tr:nth-child(even) td { 
+    background: #F1F1F1; 
+}
+
+tr:nth-child(odd) td { 
+    background: #FEFEFE; 
+}
+
+button, a.button {
+    padding:1em 1.5em;
+    margin:1em 2em;
+    background-color: #2EAE9B;
+    color:#FFF;
+    border: none;
+    border-radius: 0.28em;
+    cursor: pointer;
+    font-variant: small-caps;
+    font-weight: 600;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    display: inline-block;
+}
+
+button[type="reset"] {
+    background-color: #ae2e41;
+}
+
+button:hover, a.button:hover {
+    background-color: #666;
+}
+.buttons {
+    text-align: center;
+}
