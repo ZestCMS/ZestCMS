@@ -11,12 +11,6 @@
  */
 
 return [
-    
-    
-    
-    
-    
-    
     // Homepage : list all articles
     '/' => ['Zest\Controllers\Articles', 'allArticles'],
     
@@ -30,6 +24,7 @@ return [
     // Admin Homepage
     '/admin' => ['Zest\Controllers\AdminHomepage', 'allArticles'],
     
+    // Edit articles
     '/admin/write' =>['Zest\Controllers\AdminWrite', 'new_article'],
     '/admin/write/getencodedtitle' =>['Zest\Controllers\AdminWrite', 'getEncodedTitle'],
     '/admin/write/getpreview' =>['Zest\Controllers\AdminWrite', 'getPreview'],
