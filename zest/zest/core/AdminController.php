@@ -4,7 +4,7 @@
  * AdminController
  *
  * @author  Maxence CAUDERLIER
- * @link    https://github.com/MaxenceCauderlier/ZestCMS
+ * @link    https://github.com/ZestCMS/ZestCMS
  * @license http://opensource.org/licenses/MIT The MIT License
  */
 
