@@ -57,6 +57,6 @@ class Site
             $content .= $tpl->output();
         }
         $layout->set('content', $content);
-        echo $layout->output();
+        return $layout->output();
     }
 }

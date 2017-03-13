@@ -12,7 +12,7 @@ namespace Zest\Controllers;
 
 use Zest\Templates\Template as Template,
     Zest\Templates\StringTemplate as StringTemplate,
-    Zest\Responses\Site as SiteResponse,
+    Zest\Responses\Admin as SiteResponse,
     Zest\Responses\Ajax as AjaxResponse;
 
 /**
@@ -24,9 +24,12 @@ class AdminWrite extends \Zest\Core\AdminController
     {
         $response = new SiteResponse();
         $tpl = new Template('admin/write.tpl');
+        $editor = new \Zest\Utils\Editor('article');
+        
+        
         if (isset($_POST['save_article']))
         {
-            $_POST['content'] = $_POST['artcontent'];
+            $_POST['content'] = $editor->getPOSTContent();
             $art = new \Zest\Entities\Article();
             $art->hydrateByArray($_POST);
             if ($art->isValid())
@@ -35,13 +38,15 @@ class AdminWrite extends \Zest\Core\AdminController
                 {
                     // Encoded title is not already used or Article isnt a new
                     $art->save();
-                    header('Location:' . $this->getZest()->getRootUrl() . $art->encoded_title);
+                    header('Location:' . $art->url);
                     exit();
                 }
                 $tpl->set('error', 'URL Article is already used');
             }
             $tpl->set('article', $art);
+            
         }
+        $tpl->set('EDITOR', $editor);
         $response->addTemplate($tpl);
         $response->setTitle('Article Write');
         return $response;
@@ -50,12 +55,15 @@ class AdminWrite extends \Zest\Core\AdminController
     public function edit_article($id)
     {
         $response = new SiteResponse();
+        $editor = new \Zest\Utils\Editor('article');
         $art = \Zest\Managers\Articles::loadArticle($id, \Zest\Managers\Articles::SEARCH_ID);
         if ($art === false)
         {
             $this->getZest()->call404Error();
         }
+        $editor->setContent($art->content);
         $tpl = new Template('admin/write.tpl');
+        $tpl->set('EDITOR', $editor);
         $tpl->set('article', $art);
         $response->addTemplate($tpl);
         $response->setTitle('Article Write');
@@ -80,9 +88,9 @@ class AdminWrite extends \Zest\Core\AdminController
     
     public function getPreview()
     {
-        if (isset($_POST['artcontent']))
+        if (isset($_POST['editor_preview']))
         {
-            $content = $_POST['artcontent'];
+            $content = $_POST['editor_preview'];
         }
         else
         {

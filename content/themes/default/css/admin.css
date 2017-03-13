@@ -3,11 +3,14 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 12 janv. 2017, 18:40:19
     Author     : Toss
 */
 
+* {
+    box-sizing: border-box;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,24 +24,51 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     vertical-align: baseline;
 }
 
+html {display: flex; flex-direction: column;}
+
 body {
     background-color: #eee;
     font : 14px/1.8em 'Open Sans', Helvetica, Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column; /* affichage vertical */
+    min-height: 100vh; /* toute la hauteur du viewport (compatible IE9+) */
 }
 
+#page-container {
+    display: block; /* IE fix */
+    flex: 1 1 auto; /* occupe la hauteur restante */
+    display: flex; /* crée un contexte flex pour ses enfants */
+    flex-direction: row; /* affichage horizontal */
+    position: relative;
+}
 #header-wrapper {
-    background-color: #444;
-    color: #fff;
-    padding: 15px;
+    position: absolute;
+    color: #333;
+    padding: 5px;
     margin:0;
+    top:0;
+    left:0;
+}
+
+#header-wrapper a#sidebar-toggle {
+    color:#333;
+    font-size: 16px;
+    position:absolute;
+    top:5px;
+    left:5px;
+}
+
+#header-wrapper a#sidebar-toggle:before {
+    font:normal normal normal 1.1em FontAwesome;
+    content:'\f0c9';
+    margin-right: 10px;
 }
 
 #header {
     max-width: 1080px;
     margin: 0 auto;
-    display: flex;
 }
 
 #header a {
@@ -46,7 +76,8 @@ body {
 }
 
 #content-wrapper {
-    margin:0;
+    display: block; /* IE fix */
+    flex: 1; /* occupe la largeur restante */
 }
 
 #content {
@@ -76,6 +107,26 @@ body {
     align-self: center;
 }
 
+#sidebar-wrapper {
+    background: #444;
+    width: 15em;
+    z-index: 999;
+    display: none;
+    position: absolute;
+    min-height: 100%;
+}
+
+#sidebar-toggle {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: 1;
+}
+
+#content-wrapper {
+    display: block; /* IE fix */
+    flex: 1; /* occupe la largeur restante */
+}
 pre {
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -94,6 +145,7 @@ a, a:visited {
     -ms-transition: all 0.2s linear;
     -o-transition: all 0.2s linear;
     transition: all 0.2s linear;
+    cursor: pointer;
 }
 
 a:hover, a:active {
@@ -203,12 +255,12 @@ td {
     padding:0.6em 0.8em;
 }
 
-tr:nth-child(even) td { 
-    background: #F1F1F1; 
+tr:nth-child(even) td {
+    background: #F1F1F1;
 }
 
-tr:nth-child(odd) td { 
-    background: #FEFEFE; 
+tr:nth-child(odd) td {
+    background: #FEFEFE;
 }
 
 button, a.button {
@@ -227,6 +279,7 @@ button, a.button {
     -o-transition: all 0.2s linear;
     transition: all 0.2s linear;
     display: inline-block;
+    outline: 0;
 }
 
 button[type="reset"] {
@@ -238,4 +291,51 @@ button:hover, a.button:hover {
 }
 .buttons {
     text-align: center;
+}
+
+.menu a {
+    color:#fff;
+}
+
+.menu a:hover {
+    color: #6cc6b9;
+}
+
+.menu li:last-child, .menu a#close-sidebar, .menu .separator {
+    border-bottom: 1px solid #777;
+    margin-bottom: 1em;
+}
+
+.fancybox-slide .full-overlay {
+    position:fixed;
+    top:30px;
+    left:30px;
+    right:30px;
+    bottom:30px;
+    z-index:16000;
+    margin:auto;
+}
+.block-container {
+    display: flex;
+    justify-content:flex-start;
+}
+.block {
+    display: inline-block;
+    margin: 5px;
+    border:1px solid #EEE;
+    padding:4px;
+    overflow: hidden;
+}
+
+.small.block {
+    width:120px;
+}
+
+.pic-100 {
+    width:100px;
+    height:100px;
+    overflow: hidden;
+}
+.fa-trash, a .fa-trash {
+    color:red;
 }

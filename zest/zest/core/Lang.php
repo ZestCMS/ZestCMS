@@ -15,18 +15,19 @@ namespace Zest\Core;
  */
 class Lang
 {
+
     /**
      * Translation
-     * @var string 
+     * @var string
      */
     protected $_translation;
-    
+
     /**
      * Language sentences
      * @var array
      */
     protected $_data;
-    
+
     /**
      * Set translation
      * @param string    Translation
@@ -34,24 +35,32 @@ class Lang
     public function __construct($translation)
     {
         $file = LANGS_PATH . $translation . '.php';
-        if (file_exists($file))
-        {
+        if (file_exists($file)) {
             $this->_translation = $translation;
         }
-        else
-        {
+        else {
             throw new Exception('Language file ' . $translation . ' seem not exist');
         }
         $this->_data = require $file;
     }
-    
+
     public function __get($name)
     {
         return isset($this->_data[$name]) ? $this->_data[$name] : false;
     }
-    
+
     public function getAllLanguagesDatas()
     {
         return $this->_data;
     }
+
+    public function loadPluginFile($pluginPath)
+    {
+        $file = $pluginPath . $this->_translation . '.php';
+        if (is_file($file)) {
+            $datas       = require $file;
+            $this->_data = array_merge($this->_data, $datas);
+        }
+    }
+
 }

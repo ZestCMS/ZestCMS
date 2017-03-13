@@ -1,0 +1,35 @@
+.menu {
+    display: inline-block;
+}
+
+.menu, .menu ul {
+    list-style-type: none;
+    width: 100%;
+    padding-left:15px;
+}
+
+.menu a {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.menu .has-menu > a:after{
+    font:normal normal normal 1em FontAwesome;
+    content:'\f107';
+    position: absolute;
+    top:6px;
+    right:10px;
+}
+
+.menu .has-menu.selected > a:after{
+    content:'\f106';
+}
+
+.menu a#close-sidebar:after {
+    font:normal normal normal 1em FontAwesome;
+    content:'\f00d';
+    position: absolute;
+    top:6px;
+    right:10px;
+}

@@ -23,11 +23,16 @@ class Autoloader
         {
             $path = self::loadZestClass($className);
         }
-        else
+        elseif ($arr[0] === 'Plugins')
         {
             // To autoload plugins or more
+            $path = self::loadPluginsClass($className);
+        }
+        else
+        {
             $path = "";
         }
+        
         if (file_exists($path))
         {
             include($path);
@@ -44,6 +49,26 @@ class Autoloader
         $arr  = explode('\\', $className);
         array_splice($arr, 1, 0, rtrim(CORE_PATH, DS));
         $path = '';
+        foreach ($arr as $key => $val)
+        {
+            if ($key != count($arr) - 1)
+            {
+                $path .= strtolower($val) . DS;
+            }
+            else
+            {
+                $path .= $val . '.php';
+            }
+        }
+        return $path;
+    }
+    
+    private static function loadPluginsClass($className)
+    {
+        $arr  = explode('\\', $className);
+        array_shift($arr);
+        
+        $path = PLUGINS_PATH;
         foreach ($arr as $key => $val)
         {
             if ($key != count($arr) - 1)

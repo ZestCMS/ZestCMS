@@ -138,15 +138,12 @@ class Router
      */
     public function __construct($url = null)
     {
-        if ($url == null)
-        {
+        if ($url == null) {
             // Get the current URL, differents depending on platform/server software
-            if (!empty($_SERVER['REQUEST_URL']))
-            {
+            if (!empty($_SERVER['REQUEST_URL'])) {
                 $url = $_SERVER['REQUEST_URL'];
             }
-            else
-            {
+            else {
                 $url = $_SERVER['REQUEST_URI'];
             }
         }
@@ -209,29 +206,22 @@ class Router
     {
         // Whether or not we have matched the URL to a route
         $matched_route = false;
-
         // Sort the array by priority
         ksort($this->routes);
-
         // Loop through each priority level
-        foreach ($this->routes as $priority => $routes)
-        {
+        foreach ($this->routes as $priority => $routes) {
             // Loop through each route for this priority level
-            foreach ($routes as $route => $callback)
-            {
+            foreach ($routes as $route => $callback) {
                 // Does the routing rule match the current URL?
-                if (preg_match($route, $this->url_clean, $matches))
-                {
+                if (preg_match($route, $this->url_clean, $matches)) {
                     // A routing rule was matched
                     $matched_route = TRUE;
                     // Parameters to pass to the callback function
                     $params        = [];
 
                     // Get any named parameters from the route
-                    foreach ($matches as $key => $match)
-                    {
-                        if (is_string($key) && $match !== '')
-                        {
+                    foreach ($matches as $key => $match) {
+                        if (is_string($key) && $match !== '') {
                             $params[] = $match;
                         }
                     }
@@ -246,8 +236,7 @@ class Router
             }
         }
         // Was a match found or should we execute the default callback?
-        if (!$matched_route && $this->default_route !== null)
-        {
+        if (!$matched_route && $this->default_route !== null) {
             $this->params[] = $this->url_clean;
             $this->callback = $this->default_route;
             return array('params' => $this->url_clean, 'callback' => $this->default_route, 'route' => false, 'original_route' => false);
@@ -262,20 +251,17 @@ class Router
      */
     public function dispatch()
     {
-        if ($this->callback == null && $this->params == null)
-        {
+        if ($this->callback == null && $this->params == null) {
             throw new Exception('No callback or parameters found, please run $router->run() before $router->dispatch()');
 
             return false;
         }
 
-        if (is_array($this->callback))
-        {
+        if (is_array($this->callback)) {
             $obj = new $this->callback[0]();
             return call_user_func_array([$obj, $this->callback[1]], $this->params);
         }
-        else
-        {
+        else {
             return call_user_func($this->callback, $this->params);
         }
     }
@@ -334,11 +320,9 @@ class Router
         $route = '#^' . $route . '$#';
 
         // Does this URL routing rule already exist in the routing table?
-        if (isset($this->routes[$priority][$route]))
-        {
+        if (isset($this->routes[$priority][$route])) {
             // Trigger a new error and exception if errors are on
-            if ($this->show_errors)
-            {
+            if ($this->show_errors) {
                 //throw new \Exception('The URI "' . htmlspecialchars($route) . '" already exists in the router table');
             }
 
@@ -350,6 +334,29 @@ class Router
         $this->routes_original[$priority][$route] = $original_route;
 
         return true;
+    }
+
+    /**
+     * Add a lot of routes
+     * $routes must be array like this :
+     * [Pattern => [
+     *     ClassName,
+     *     MethodName,
+     *     Priority ]]
+     *
+     * @param array Routes
+     */
+    public function addLotOfRoutes($routes)
+    {
+        foreach ($routes as $pattern => $callback) {
+            if (isset($callback[2])) {
+                $priority = array_pop($callback);
+                $this->route($pattern, $callback, $priority);
+            }
+            else {
+                $this->route($pattern, $callback);
+            }
+        }
     }
 
     /**
@@ -371,21 +378,18 @@ class Router
     {
         // The request url might be /project/index.php, this will remove the /project part
         // Replace only if script is on a subfolder
-        if (dirname($_SERVER['SCRIPT_NAME']) !== '/' && dirname($_SERVER['SCRIPT_NAME']) !== '')
-        {
+        if (dirname($_SERVER['SCRIPT_NAME']) !== '/' && dirname($_SERVER['SCRIPT_NAME']) !== '') {
             $url = str_replace(dirname($_SERVER['SCRIPT_NAME']), '', $url);
         }
         // Remove the query string if there is one
         $query_string = strpos($url, '?');
 
-        if ($query_string !== false)
-        {
+        if ($query_string !== false) {
             $url = substr($url, $query_string + 1);
         }
 
         // If the URL looks like http://localhost/index.php/path/to/folder remove /index.php
-        if (substr($url, 1, strlen(basename($_SERVER['SCRIPT_NAME']))) == basename($_SERVER['SCRIPT_NAME']))
-        {
+        if (substr($url, 1, strlen(basename($_SERVER['SCRIPT_NAME']))) == basename($_SERVER['SCRIPT_NAME'])) {
             $url = substr($url, strlen(basename($_SERVER['SCRIPT_NAME'])) + 1);
         }
 

@@ -114,7 +114,7 @@ class Template
     {
         $this->content = preg_replace('#\{\#(.*)\#\}#isU', '<?php /* $1 */ ?>', $this->content);
         $this->content = preg_replace_callback('#\{\% *NOPARSE *\%\}(.*)\{\% *ENDNOPARSE *\%\}#isU', 'self::_no_parse', $this->content);
-        $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *([\=|\<|\>|\!]{2,3}) *([0-9a-z_\.\-]+) *\%\}#i', 'self::_complexe_if_replace' , $this->content);
+        $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *([\=|\<|\>|\!]{1,3}) *([0-9a-z_\.\-]+) *\%\}#i', 'self::_complexe_if_replace' , $this->content);
         $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *\%\}#i', 'self::_simple_if_replace', $this->content);
         $this->content = preg_replace('#\{\{ *([0-9a-z_\.\-]+) *\}\}#i', '<?php $this->_show_var(\'$1\'); ?>', $this->content);
         $this->content = preg_replace_callback('#\{\% *FOR +([0-9a-z_\.\-]+) +IN +([0-9a-z_\.\-]+) *\%\}#i', 'self::_replace_for', $this->content);
@@ -150,7 +150,7 @@ class Template
         }
         else
         {
-            $thirst = '$this->data[' . $matches[3] . ']';
+            $thirst = '$this->getVar(\'' . $matches[3] . '\', $this->data)';
         }
         return '<?php if(' . $first . $matches[2] . $thirst . '){ ?>';
     }
@@ -170,7 +170,7 @@ class Template
 
     protected function _replace_for($matches)
     {
-        return '<?php foreach ($this->data[\'' . $matches[2] . '\'] as $' . $matches[1] . '): $this->data[\'' . $matches[1] . '\' ] = $' . $matches[1] . '; ?>';
+        return '<?php foreach ($this->getVar(\'' . $matches[2] . '\', $this->data) as $' . $matches[1] . '): $this->data[\'' . $matches[1] . '\' ] = $' . $matches[1] . '; ?>';
     }
     
     /**

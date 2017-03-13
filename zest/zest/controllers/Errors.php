@@ -18,12 +18,14 @@ use Zest\Templates\Template as Template,
  */
 class Errors extends \Zest\Core\Controller
 {
+
     public function Page404()
     {
-        $tpl = new Template('404.tpl');
+        $tpl      = new Template('404.tpl');
         $response = new SiteResponse();
         $response->setTitle($this->site_config['title'] . ' : Page not found');
         $response->addTemplate($tpl);
         return $response;
     }
+
 }

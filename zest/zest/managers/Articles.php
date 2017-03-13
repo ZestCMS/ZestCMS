@@ -123,7 +123,7 @@ class Articles
         
         $metas = self::getArticlesMetas();
         $metas[$article->id] = $article;
-        $art = json_encode($metas, JSON_NUMERIC_CHECK);
+        $art = json_encode($metas, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT);
         file_put_contents($jsonfile, $art);
     }
     

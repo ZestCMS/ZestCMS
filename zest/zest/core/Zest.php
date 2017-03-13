@@ -23,19 +23,22 @@ class Zest
      * @var \self
      */
     private static $instance;
-    
+
     /** @var array  Config */
     private $config;
-    
+
     /** @var array Routes */
     private $routes = [];
-    
+
     /** @var \Zest\Core\Router  Router */
     private $router;
-    
+
     /** @var Parser */
     private $parser;
-    
+
+    /** @var \Zest\Core\PluginsManager PluginsManager */
+    private $pluginsManager;
+
     /** @var \Zest\Core\Lang Lang Object */
     public $lang;
 
@@ -45,8 +48,7 @@ class Zest
      */
     public static function getInstance()
     {
-        if (!isset(self::$instance))
-        {
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
         return self::$instance;
@@ -56,10 +58,19 @@ class Zest
     {
         session_start();
         $this->config = parse_ini_file(CORE_PATH . 'config.ini', true);
+        define('ROOT_URL', $this->config['zest']['url']);
 
         $this->lang = new Lang($this->config['site']['lang']);
-        
+
         $this->initRouter();
+
+
+        $this->pluginsManager = new PluginsManager(PLUGINS_PATH);
+        $this->pluginsManager->loadPlugins();
+
+        foreach ($this->pluginsManager->getLanguagesPaths() as $path) {
+            $this->lang->loadPluginFile($path);
+        }
         $this->initGlobals();
     }
 
@@ -69,9 +80,12 @@ class Zest
      */
     public function run()
     {
-        foreach ($this->routes as $pattern => $callback)
-        {
-            $this->router->route($pattern, $callback);
+        // Core routes
+        $this->router->addLotOfRoutes($this->routes);
+
+        // Plugins routes
+        foreach ($this->pluginsManager->getPluginsRoutes() as $plugin) {
+            $this->router->addLotOfRoutes($plugin);
         }
 
         $response = $this->router->execute();
@@ -81,17 +95,17 @@ class Zest
 
     /**
      * Get the site config as array
-     * 
+     *
      * @return array
      */
     public function getSiteConfig()
     {
         return $this->config['site'];
     }
-    
+
     /**
      * Get the framework config as array
-     * 
+     *
      * @return array
      */
     public function getZestConfig()
@@ -101,13 +115,13 @@ class Zest
 
     /**
      * Get the site root url, defined in config.ini
-     * 
+     *
      * @return string Url
      */
     public function getRootUrl()
     {
         return $this->config['zest']['url'];
-    }    
+    }
 
     /**
      * Initialize Router, load routes and define the defaut_route,
@@ -117,7 +131,7 @@ class Zest
     {
         $this->router = new Router();
 
-        $this->router->default_route(['Zest\Controllers\Errors' , 'Page404']);
+        $this->router->default_route(['Zest\Controllers\Errors', 'Page404']);
         $this->routes = require CORE_PATH . 'routes.php';
     }
 
@@ -126,9 +140,9 @@ class Zest
      */
     private function displayResponse($response)
     {
-        $response->output();
+        echo $response->output();
     }
-    
+
     /**
      * Add all site and framework globals to the templates
      */
@@ -136,41 +150,38 @@ class Zest
     {
         \Zest\Templates\Template::addGlobal('ROOT', $this->getRootUrl());
         \Zest\Templates\Template::addGlobal('LANG', $this->lang->getAllLanguagesDatas());
-        if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true)
-        {
+        if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
             \Zest\Templates\Template::addGlobal('IS_ADMIN', false);
         }
-        else
-        {
+        else {
             \Zest\Templates\Template::addGlobal('IS_ADMIN', true);
         }
     }
-    
+
     /**
      * Show the Page 404 and stop the script
      */
     public function call404Error()
     {
-        $Error = new \Zest\Controllers\Errors();
+        $Error    = new \Zest\Controllers\Errors();
         $response = $Error->Page404();
         $this->displayResponse($response);
         exit();
     }
-    
+
     /**
      * Get Parser to parse content
-     * 
+     *
      * @return Parser
      */
     public function getParser()
     {
-        if (!isset($this->parser))
-        {
+        if (!isset($this->parser)) {
             $this->loadParser();
         }
         return $this->parser;
     }
-    
+
     /**
      * Init Parser
      */

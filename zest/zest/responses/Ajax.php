@@ -25,6 +25,6 @@ class Ajax extends Site
         {
             $content .= $tpl->output();
         }
-        echo $content;
+        return $content;
     }
 }

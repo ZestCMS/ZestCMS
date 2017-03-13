@@ -89,7 +89,7 @@ class Article implements \JsonSerializable
         {
             $this->htmlContent = \Zest\Core\Zest::getInstance()->getParser()->parse($this->content);
         }
-        $this->url = \Zest\Core\Zest::getInstance()->getRootUrl() . $this->encoded_title;
+        $this->url = \Zest\Core\Zest::getInstance()->getRootUrl() . 'articles/' . $this->encoded_title;
     }
     
     /**

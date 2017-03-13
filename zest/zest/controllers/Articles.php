@@ -19,22 +19,7 @@ use Zest\Templates\Template as Template,
 class Articles extends \Zest\Core\Controller
 {
     public function viewArticle($article_url)
-    {
-//        $art = new \Zest\Entities\Article();
-//        $art2 = new \Zest\Entities\Article();
-//        $art->hydrateByArray(['id' => '3']);
-//        $art2->hydrateByArray(['id' => '2']);
-//        $arr = [ $art->id => $art, $art2->id=> $art2];
-//        $js = (json_encode($arr, JSON_NUMERIC_CHECK));
-//        var_dump($js);
-//        
-//        $new = json_decode($js, true);
-//        $new[$art->id]['title'] = 'Test !!!!';
-//        var_dump($new);
-//        
-//        echo max(array_keys($new));
-//echo max(array_column($new->{'articles'}, 'id'));
-        
+    {        
         $art = \Zest\Managers\Articles::getArticleByEncodedTitle($article_url);
         if (!$art)
         {

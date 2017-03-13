@@ -20,7 +20,7 @@ class Login extends \Zest\Core\Controller
 {
     public function login()
     {
-        if ($_SESSION['is_admin'] === true)
+        if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true)
         {
             // Already logged
             header('Location: ' . $this->getZest()->getRootUrl() . 'admin');
