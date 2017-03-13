@@ -48,7 +48,7 @@ class HookManager
     public static function execute_filter($name, $content, $params = null)
     {
         if (!isset(self::$hooks_filters[$name]) || !is_array(self::$hooks_filters[$name])) {
-            return false;
+            return $content;
         }
         foreach (self::$hooks_filters[$name] as $callback) {
             if (is_array($callback)) {
