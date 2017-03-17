@@ -16,43 +16,106 @@ namespace Zest\Core;
 class PluginsManager
 {
 
-    protected $installedPlugins = [];
+    /**
+     * JSON File
+     */
+    const FILE = 'plugins.json';
+
+    protected static $installedPlugins = [];
+    protected static $plugins          = [];
 
     public function __construct()
     {
-        $pluginsJson = json_decode(file_get_contents(PLUGINS_PATH . 'plugins.json'), true);
+        $pluginsJson = self::getPluginsMetas();
         foreach ($pluginsJson as $pluginName => $values) {
-            if ($values['active'] === true) {
-                $this->installedPlugins[$pluginName] = new Plugin($pluginName, $values);
-            }
+            self::$installedPlugins[$pluginName] = new Plugin($pluginName, $values);
         }
     }
 
-    public function searchPlugins()
+    public static function getInstalledPlugins()
     {
+        return self::$installedPlugins;
+    }
+
+    public static function disablePlugin($pluginName)
+    {
+        if (isset(self::$installedPlugins[$pluginName])) {
+            self::$installedPlugins[$pluginName]->disable();
+            self::saveJsonFile();
+            return true;
+        }
+        return false;
+    }
+
+    public static function enablePlugin($pluginName)
+    {
+        if (isset(self::$installedPlugins[$pluginName])) {
+            self::$installedPlugins[$pluginName]->enable();
+            self::saveJsonFile();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get all Plugins Metas as an associative array, where key is plugin dirname
+     *
+     * @return array
+     */
+    public static function getPluginsMetas()
+    {
+        return json_decode(file_get_contents(PLUGINS_PATH . self::FILE), true);
+    }
+
+    /**
+     * Save JSON Plugins File
+     *
+     * @return bool
+     */
+    protected static function saveJsonFile()
+    {
+        return file_put_contents(PLUGINS_PATH . self::FILE, json_encode(self::$installedPlugins, JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT));
+    }
+
+    public static function searchPlugins()
+    {
+        if (!empty(self::$plugins)) {
+            // Already called
+            return self::$plugins;
+        }
         $dirsPlugins = array_filter(glob(PLUGINS_PATH . '*'), 'is_dir');
+        $metas       = self::getPluginsMetas();
         foreach ($dirsPlugins as $dir) {
             $parts         = explode(DS, $dir);
             $pluginDirName = $parts[count($parts) - 1];
-            $plugin        = new Plugin($dir);
-            if ($plugin->isValid()) {
-                $this->plugins[$pluginDirName] = & $plugin;
+            if (isset($metas[$pluginDirName])) {
+                // Plugin is installed
+                $plugin = new Plugin($pluginDirName, $metas[$pluginDirName]);
             }
+            else {
+                $plugin = new Plugin($pluginDirName);
+            }
+            self::$plugins[$pluginDirName] = & $plugin;
         }
+        return self::$plugins;
     }
 
     public function loadPlugins()
     {
-        foreach ($this->installedPlugins as $plugin) {
-            $plugin->load();
+        foreach (self::$installedPlugins as $plugin) {
+            if ($plugin->isActive()) {
+                $plugin->load();
+            }
         }
     }
 
     public function getPluginsRoutes()
     {
         $routes = [];
-        foreach ($this->installedPlugins as $plugin) {
-            $routes[$plugin->getName()] = $plugin->getRoutes();
+        foreach (self::$installedPlugins as $plugin) {
+            if ($plugin->isActive()) {
+                $routes[$plugin->getName()] = $plugin->getRoutes();
+            }
         }
         return $routes;
     }
@@ -60,8 +123,10 @@ class PluginsManager
     public function getLanguagesPaths()
     {
         $paths = [];
-        foreach ($this->installedPlugins as $plugin) {
-            $paths[] = $plugin->getLanguagePath();
+        foreach (self::$installedPlugins as $plugin) {
+            if ($plugin->isActive()) {
+                $paths[] = $plugin->getLanguagePath();
+            }
         }
         return $paths;
     }

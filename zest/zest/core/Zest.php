@@ -64,7 +64,6 @@ class Zest
 
         $this->initRouter();
 
-
         $this->pluginsManager = new PluginsManager(PLUGINS_PATH);
         $this->pluginsManager->loadPlugins();
 
@@ -91,6 +90,16 @@ class Zest
         $response = $this->router->execute();
 
         $this->displayResponse($response);
+    }
+
+    /**
+     * Get PluginsManager
+     *
+     * @return \Zest\Core\PluginsManager
+     */
+    public function getPluginsManager()
+    {
+        return $this->pluginsManager;
     }
 
     /**
@@ -188,6 +197,12 @@ class Zest
     private function loadParser()
     {
         $this->parser = new Markdown();
+    }
+
+    public function redirect($url)
+    {
+        header('Location:' . $url);
+        exit();
     }
 
 }

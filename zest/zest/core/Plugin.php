@@ -13,13 +13,13 @@ namespace Zest\Core;
  *
  * @author Toss
  */
-class Plugin
+class Plugin implements \JsonSerializable
 {
 
     protected $pluginName;
     protected $pluginPath;
     protected $options = [];
-    protected $routes = [];
+    protected $routes  = [];
 
     public function __construct($pluginName, $values = [])
     {
@@ -57,6 +57,57 @@ class Plugin
     public function getLanguagePath()
     {
         return $this->pluginPath . 'lang' . DS;
+    }
+
+    public function isInstalled()
+    {
+        if (!isset($this->options['installed'])) {
+            return false;
+        }
+        return $this->options['installed'];
+    }
+
+    public function isActive()
+    {
+        if (!isset($this->options['active'])) {
+            return false;
+        }
+        return $this->options['active'];
+    }
+
+    public function getInstallUrl()
+    {
+        return ROOT_URL . 'admin/plugins/install/' . $this->pluginName;
+    }
+
+    public function getUninstallUrl()
+    {
+        return ROOT_URL . 'admin/plugins/uninstall/' . $this->pluginName;
+    }
+
+    public function getActiveUrl()
+    {
+        return ROOT_URL . 'admin/plugins/active/' . $this->pluginName;
+    }
+
+    public function getUnactiveUrl()
+    {
+        return ROOT_URL . 'admin/plugins/unactive/' . $this->pluginName;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->options;
+    }
+
+    public function disable()
+    {
+        $this->options['active'] = false;
+    }
+
+    public function enable()
+    {
+        $this->options['active'] = true;
     }
 
 }
