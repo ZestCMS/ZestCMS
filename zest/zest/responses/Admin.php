@@ -24,11 +24,9 @@ class Admin extends Site
      */
     public function output()
     {
-        $site_config = \Zest\Core\Zest::getInstance()->getSiteConfig();
-        $layout      = new \Zest\Templates\Template('admin' . DS . 'layout.tpl');
+        $layout  = new \Zest\Templates\Template('admin' . DS . 'layout.tpl');
         $layout->set('page_title', $this->title);
-        $layout->set('site_name', $site_config['title']);
-        $content     = '';
+        $content = '';
         foreach ($this->tpl as $tpl) {
             $content .= $tpl->output();
         }
@@ -69,6 +67,9 @@ class Admin extends Site
         $plugins  = $menu->addItem('Plugins', [
             'id'  => 'plugins',
             'url' => URLBuilder::getURLAdminPluginsManagement()]);
+        $config   = $menu->addItem('Config', [
+            'id'  => 'config',
+            'url' => URLBuilder::getURLAdminConfiguration()]);
         return $menu;
     }
 

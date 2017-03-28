@@ -61,10 +61,7 @@ class Plugin implements \JsonSerializable
 
     public function isInstalled()
     {
-        if (!isset($this->options['installed'])) {
-            return false;
-        }
-        return $this->options['installed'];
+        return !empty($this->options);
     }
 
     public function isActive()

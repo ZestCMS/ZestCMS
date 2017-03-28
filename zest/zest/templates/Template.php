@@ -18,12 +18,13 @@ class Template
 
     /** @var array  Constants */
     protected static $const = [];
-    
+
     /** @var string Template path */
     protected $file;
-    
+
     /** @var string Template content */
     protected $content;
+
     /** @var array  Assigned datas to replace */
     protected $data = [];
 
@@ -31,26 +32,25 @@ class Template
      * Constructor
      * Check if the template exist in the current theme, else template will be
      * taken from 'default' theme
-     * 
+     *
      * @param string Template name with extension
      */
     public function __construct($file)
     {
-        $site_config = \Zest\Core\Zest::getInstance()->getSiteConfig();
-        $filename    = THEMES_PATH . $site_config['theme'] . DS . 'tpl' . DS . $file;
-        if (is_file($filename))
-        {
+        $config   = \Zest\Core\Zest::getInstance()->config;
+        $theme    = $config->get('site', 'theme');
+        $filename = THEMES_PATH . $theme . DS . 'tpl' . DS . $file;
+        if (is_file($filename)) {
             $this->file = $filename;
         }
-        else
-        {
+        else {
             $this->file = THEMES_PATH . 'default' . DS . $file;
         }
     }
 
     /**
      * Add a var who will be added to all templates
-     * 
+     *
      * @static
      * @param string Var key
      * @param string Value
@@ -63,7 +63,7 @@ class Template
     /**
      * Assign datas to this template
      * Datas can be string, numeric... or array and objects
-     * 
+     *
      * @param string Var key
      * @param string Value
      */
@@ -74,13 +74,12 @@ class Template
 
     /**
      * Return the parsed template content
-     * 
+     *
      * @return string Parsed content
      */
     public function output()
     {
-        if (!file_exists($this->file))
-        {
+        if (!file_exists($this->file)) {
             return "Error loading template file ($this->file).<br/>";
         }
         ob_start();
@@ -114,7 +113,7 @@ class Template
     {
         $this->content = preg_replace('#\{\#(.*)\#\}#isU', '<?php /* $1 */ ?>', $this->content);
         $this->content = preg_replace_callback('#\{\% *NOPARSE *\%\}(.*)\{\% *ENDNOPARSE *\%\}#isU', 'self::_no_parse', $this->content);
-        $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *([\=|\<|\>|\!]{1,3}) *([0-9a-z_\.\-]+) *\%\}#i', 'self::_complexe_if_replace' , $this->content);
+        $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *([\=|\<|\>|\!]{1,3}) *([0-9a-z_\.\-]+) *\%\}#i', 'self::_complexe_if_replace', $this->content);
         $this->content = preg_replace_callback('#\{\% *IF +([0-9a-z_\.\-]+) *\%\}#i', 'self::_simple_if_replace', $this->content);
         $this->content = preg_replace('#\{\{ *([0-9a-z_\.\-]+) *\}\}#i', '<?php $this->_show_var(\'$1\'); ?>', $this->content);
         $this->content = preg_replace_callback('#\{\% *FOR +([0-9a-z_\.\-]+) +IN +([0-9a-z_\.\-]+) *\%\}#i', 'self::_replace_for', $this->content);
@@ -128,7 +127,7 @@ class Template
     {
         return str_replace('{', '#/§&µ&§;#', $matches[1]);
     }
-    
+
     protected function _show_var($name)
     {
         echo $this->getVar($name, $this->data);
@@ -136,33 +135,27 @@ class Template
 
     protected function _complexe_if_replace($matches)
     {
-        if (is_numeric($matches[1]))
-        {
+        if (is_numeric($matches[1])) {
             $first = $matches[1];
         }
-        else
-        {
+        else {
             $first = '$this->getVar(\'' . $matches[1] . '\', $this->data)';
         }
-        if (is_numeric($matches[3]))
-        {
+        if (is_numeric($matches[3])) {
             $thirst = $matches[3];
         }
-        else
-        {
+        else {
             $thirst = '$this->getVar(\'' . $matches[3] . '\', $this->data)';
         }
         return '<?php if(' . $first . $matches[2] . $thirst . '){ ?>';
     }
-    
+
     protected function _simple_if_replace($matches)
     {
-        if (is_numeric($matches[1]))
-        {
+        if (is_numeric($matches[1])) {
             $first = $matches[1];
         }
-        else
-        {
+        else {
             $first = '$this->getVar(\'' . $matches[1] . '\', $this->data)';
         }
         return '<?php if(' . $first . '){ ?>';
@@ -172,11 +165,11 @@ class Template
     {
         return '<?php foreach ($this->getVar(\'' . $matches[2] . '\', $this->data) as $' . $matches[1] . '): $this->data[\'' . $matches[1] . '\' ] = $' . $matches[1] . '; ?>';
     }
-    
+
     /**
      * Recursive method to get asked var, with capacity to determine children
      * like : parent.child.var
-     * 
+     *
      * @param string    Name of the asked var
      * @param mixed     Parent of the var
      * @return mixed    Asked var
@@ -184,49 +177,42 @@ class Template
     protected function getVar($var, $parent)
     {
         $parts = explode('.', $var);
-        if (count($parts) === 1)
-        {
+        if (count($parts) === 1) {
             // No child
             return $this->getSubVar($var, $parent);
         }
-        else
-        {
+        else {
             // At least 1 child
-            $name = array_shift($parts);
+            $name       = array_shift($parts);
             $new_parent = $this->getSubVar($name, $parent);
-            $var = join('.', $parts);
+            $var        = join('.', $parts);
             // call recursive
             return $this->getVar($var, $new_parent);
         }
     }
-    
+
     /**
-     * Determine and return if asked var is var, attribut or method if parent 
+     * Determine and return if asked var is var, attribut or method if parent
      * is array or object
-     * 
+     *
      * @param string    Name of the asked var
      * @param mixed     Parent of the var
      * @return mixed    Asked var
      */
     protected function getSubVar($var, $parent)
     {
-        if (is_array($parent))
-        {
-            if (isset($parent[$var]))
-            {
+        if (is_array($parent)) {
+            if (isset($parent[$var])) {
                 return $parent[$var];
             }
             return '';
         }
-        if (is_object($parent))
-        {
-            if (is_callable([$parent, $var]))
-            {
+        if (is_object($parent)) {
+            if (is_callable([$parent, $var])) {
                 // Method
                 return $parent->$var();
             }
-            if (isset($parent->$var))
-            {
+            if (isset($parent->$var)) {
                 // Attribut
                 return $parent->$var;
             }
@@ -234,15 +220,15 @@ class Template
         }
         return '';
     }
-    
+
     /**
      * Add Globals vars to datas template
      */
     protected function addGlobalsToVars()
     {
-        foreach(self::$const as $key => $value)
-        {
+        foreach (self::$const as $key => $value) {
             $this->data[$key] = $value;
         }
     }
+
 }

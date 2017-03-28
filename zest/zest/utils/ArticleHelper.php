@@ -15,9 +15,10 @@ namespace Zest\Utils;
  */
 class ArticleHelper
 {
+
     /**
      * Normalize a string to be ready to use for a filename
-     * 
+     *
      * @param string    String to normalize
      * @return string   Normalized string
      */
@@ -31,4 +32,11 @@ class ArticleHelper
 
         return trim($string, ' _');
     }
+
+    public static function date_format($timestamp)
+    {
+        $config = \Zest\Core\Zest::getInstance()->config;
+        return date($config->get('site', 'date_format'), $timestamp);
+    }
+
 }

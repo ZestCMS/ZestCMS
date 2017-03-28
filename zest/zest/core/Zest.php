@@ -24,8 +24,8 @@ class Zest
      */
     private static $instance;
 
-    /** @var array  Config */
-    private $config;
+    /** @var \Zest\Core\Configuration Config Object */
+    public $config;
 
     /** @var array Routes */
     private $routes = [];
@@ -57,10 +57,10 @@ class Zest
     private function __construct()
     {
         session_start();
-        $this->config = parse_ini_file(CORE_PATH . 'config.ini', true);
-        define('ROOT_URL', $this->config['zest']['url']);
+        $this->config = new Configuration();
+        define('ROOT_URL', $this->config->get('zest', 'url'));
 
-        $this->lang = new Lang($this->config['site']['lang']);
+        $this->lang = new Lang($this->config->get('site', 'lang'));
 
         $this->initRouter();
 
@@ -103,36 +103,6 @@ class Zest
     }
 
     /**
-     * Get the site config as array
-     *
-     * @return array
-     */
-    public function getSiteConfig()
-    {
-        return $this->config['site'];
-    }
-
-    /**
-     * Get the framework config as array
-     *
-     * @return array
-     */
-    public function getZestConfig()
-    {
-        return $this->config['zest'];
-    }
-
-    /**
-     * Get the site root url, defined in config.ini
-     *
-     * @return string Url
-     */
-    public function getRootUrl()
-    {
-        return $this->config['zest']['url'];
-    }
-
-    /**
      * Initialize Router, load routes and define the defaut_route,
      * used if no route is matching the requested URI
      */
@@ -157,7 +127,8 @@ class Zest
      */
     private function initGlobals()
     {
-        \Zest\Templates\Template::addGlobal('ROOT', $this->getRootUrl());
+        \Zest\Templates\Template::addGlobal('ROOT', $this->config->get('zest', 'url'));
+        \Zest\Templates\Template::addGlobal('SITENAME', $this->config->get('site', 'title'));
         \Zest\Templates\Template::addGlobal('LANG', $this->lang->getAllLanguagesDatas());
         if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
             \Zest\Templates\Template::addGlobal('IS_ADMIN', false);
@@ -203,6 +174,11 @@ class Zest
     {
         header('Location:' . $url);
         exit();
+    }
+
+    public function getSiteTitle()
+    {
+        return $this->config->get('site', 'title');
     }
 
 }

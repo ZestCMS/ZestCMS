@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="{{ROOT}}content/themes/default/css/menus.css" />
         <link rel="stylesheet" href="{{ROOT}}content/themes/default/css/admin.css" />
         <link rel="stylesheet" href="{{ROOT}}content/themes/default/css/jquery.fancybox.min.css" />
+        <link rel="shortcut icon" href="{{ROOT}}content/themes/default/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ROOT}}content/themes/default/favicon.ico" type="image/x-icon">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ROOT}}content/themes/default/js/menus.js"></script>
         <script src="{{ROOT}}content/themes/default/js/jquery.fancybox.min.js"></script>
@@ -31,7 +33,7 @@
         </div>
         <footer id="footer-wrapper">
             <div id="footer">
-                {{LANG.powered_by}} <a href="https://github.com/ZestCMS/ZestCMS">Zest</a> • © 2017 {{site_name}} •
+                {{LANG.powered_by}} <a href="https://github.com/ZestCMS/ZestCMS">Zest</a> • © 2017 {{SITENAME}} •
                 <a href="{{ROOT}}logout">{{LANG.logout}}</a>
             </div>
         </footer>

@@ -19,7 +19,7 @@ use Zest\Templates\Template as Template,
 class Plugins extends \Zest\Core\AdminController
 {
 
-    public function installedPlugins()
+    public function viewAllPlugins()
     {
         $plugins  = \Zest\Core\PluginsManager::searchPlugins();
         $response = new Response();
@@ -28,7 +28,7 @@ class Plugins extends \Zest\Core\AdminController
 
         $tpl->set('plugins', $plugins);
 
-        $response->setTitle($this->site_config['title'] . ' : Administration');
+        $response->setTitle($this->config->get('site', 'title') . ' : Administration');
         $response->addTemplate($tpl);
         return $response;
     }
@@ -42,6 +42,26 @@ class Plugins extends \Zest\Core\AdminController
     public function enablePlugin($pluginName)
     {
         $enable = \Zest\Core\PluginsManager::enablePlugin($pluginName);
+        $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
+    }
+
+    public function installPlugin($pluginName)
+    {
+        if (\Zest\Core\PluginsManager::isInstalledPlugin($pluginName)) {
+            $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
+        }
+
+        \Zest\Core\PluginsManager::installPlugin($pluginName);
+        $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
+    }
+
+    public function uninstallPlugin($pluginName)
+    {
+        if (!\Zest\Core\PluginsManager::isInstalledPlugin($pluginName)) {
+            $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
+        }
+
+        \Zest\Core\PluginsManager::uninstallPlugin($pluginName);
         $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
     }
 
