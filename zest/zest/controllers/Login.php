@@ -11,56 +11,41 @@
 namespace Zest\Controllers;
 
 use Zest\Templates\Template as Template,
-    Zest\Responses\Site as SiteResponse;
+    Zest\Responses\Site as SiteResponse,
+    \Zest\Utils\Authentication as Authentication;
 
 /**
  * Controller to login/logout
  */
 class Login extends \Zest\Core\Controller
 {
+
     public function login()
     {
-        if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true)
-        {
+        if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
             // Already logged
-            header('Location: ' . $this->getZest()->getRootUrl() . 'admin');
+            header('Location: ' . ROOT_URL . 'admin');
             exit();
         }
-        if (isset($_POST['login']))
-        {
-            if ($this->isPasswordAdmin($_POST['password']))
-            {
+        if (isset($_POST['login'])) {
+            if (Authentication::isPasswordAdmin($_POST['password'])) {
                 $_SESSION['is_admin'] = true;
-                header('Location: ' . $this->getZest()->getRootUrl() . 'admin');
+                header('Location: ' . ROOT_URL . 'admin');
                 exit();
             }
         }
-        $tpl = new Template('login.tpl');
+        $tpl      = new Template('login.tpl');
         $response = new SiteResponse();
-        $response->setTitle($this->site_config['title'] . ' : Login');
+        $response->setTitle($this->getZest()->getSiteTitle() . ' : Login');
         $response->addTemplate($tpl);
         return $response;
     }
-    
+
     public function logout()
     {
         unset($_SESSION['is_admin']);
-        header('Location: ' . $this->getZest()->getRootUrl());
+        header('Location: ' . ROOT_URL);
         exit();
     }
-    
-    private function getAdminPassword()
-    {
-        return sha1($this->zest_config['password_salt'] . $this->zest_config['password']);
-    }
-    
-    private function encodePassword($pass)
-    {
-        return sha1($this->zest_config['password_salt'] . sha1($pass));
-    }
-    
-    private function isPasswordAdmin($pass)
-    {
-        return ($this->encodePassword($pass) === $this->getAdminPassword());
-    }
+
 }

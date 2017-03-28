@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT The MIT License
  */
 return [
-    // Commons
+// Commons
     'homepage'                => 'Home page',
     'menu'                    => 'Menu',
     'delete'                  => 'Delete',
@@ -19,7 +19,14 @@ return [
     'url'                     => 'URL',
     'content'                 => 'Content',
     'preview'                 => 'Preview',
-    // Articles
+    'enable'                  => 'Enable',
+    'disable'                 => 'Disable',
+    'install'                 => 'Install',
+    'uninstall'               => 'Uninstall',
+    'sitename'                => 'Sitename',
+    'articles_per_page'       => 'Articles per page',
+    'date_format'             => 'Date format',
+// Articles
     'articles_list'           => 'Articles list',
     'articles_confirm_delete' => 'Are you sure to want to delete this article ?',
     'articles_write_new'      => 'Write a new article',
@@ -30,7 +37,10 @@ return [
     'logout'                  => 'Logout',
     'password'                => 'Password',
     'admin_password'          => 'Your admin password',
-    'admin_pannel'            => 'Admin Pannel',
+    'original_password'       => 'Actual Password',
+    'new_password'            => 'New Password',
+    'repeat_password'         => 'Repeat new Password',
+    'admin_panel'             => 'Admin Panel',
     // Forms
     'form_submit'             => 'Submit',
     'form_reset'              => 'Reset',

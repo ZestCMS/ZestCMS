@@ -36,4 +36,9 @@ class URLBuilder
         return ROOT_URL . 'admin/write/';
     }
 
+    public static function getURLAdminConfiguration()
+    {
+        return ROOT_URL . 'admin/config/';
+    }
+
 }

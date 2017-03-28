@@ -15,35 +15,29 @@ namespace Zest\Core;
  */
 abstract class Controller
 {
+
     /**
-     * Site configuration
-     * @var array
+     * Config Object
+     * @var \Zest\Core\Configuration
      */
-    protected $site_config;
-    
-    /**
-     * Zest configuration
-     * @var array
-     */
-    protected $zest_config;
-    
+    protected $config;
+
     /**
      * Language Object
      * @var \Zest\Core\Lang
      */
     protected $lang;
-    
+
     /**
      * Constructor
      * Initialize configuration in Controller
      */
     public function __construct()
     {
-        $this->site_config = $this->getZest()->getSiteConfig();
-        $this->zest_config = $this->getZest()->getZestConfig();
-        $this->lang = $this->getZest()->lang;
+        $this->config = $this->getZest()->config;
+        $this->lang   = $this->getZest()->lang;
     }
-    
+
     /**
      * Return Zest Instance
      * @return \Zest\Core\Zest
@@ -52,4 +46,5 @@ abstract class Controller
     {
         return Zest::getInstance();
     }
+
 }

@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" href="{{ROOT}}content/themes/default/css/style.css" />
+        <link rel="shortcut icon" href="{{ROOT}}content/themes/default/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ROOT}}content/themes/default/favicon.ico" type="image/x-icon">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <base href="{{ROOT}}" />
     </head>
@@ -14,7 +16,7 @@
         <header id="header-wrapper">
             <div id="header">
                 <a href="{{ROOT}}"><img src="{{ROOT}}content/themes/default/img/logo.png" title="{{site_name}}" alt="{{site_name}}"/></a>
-                <h1 id="site_name"><a href="{{ROOT}}">{{site_name}}</a></h1>
+                <h1 id="site_name"><a href="{{ROOT}}">{{SITENAME}}</a></h1>
             </div>
         </header>
         <section id="content-wrapper">
@@ -24,9 +26,9 @@
         </section>
         <footer id="footer-wrapper">
             <div id="footer">
-                {{LANG.powered_by}} <a href="https://github.com/ZestCMS/ZestCMS">Zest</a> • © 2017 {{site_name}} •
+                {{LANG.powered_by}} <a href="https://github.com/ZestCMS/ZestCMS">Zest</a> • © 2017 {{SITENAME}} •
                 {% if IS_ADMIN %}
-                <a href="{{ROOT}}admin">{{LANG.admin_pannel}}</a><br/>
+                <a href="{{ROOT}}admin">{{LANG.admin_panel}}</a><br/>
                 <a href="{{ROOT}}logout">{{LANG.logout}}</a>
                 {% else %}
                 <a href="{{ROOT}}login">{{LANG.login}}</a>

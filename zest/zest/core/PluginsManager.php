@@ -57,6 +57,36 @@ class PluginsManager
         return false;
     }
 
+    public static function installPlugin($pluginName)
+    {
+        $installFile = PLUGINS_PATH . $pluginName . DS . 'install.php';
+        if (is_file($installFile)) {
+            include $installFile;
+        }
+
+        self::$installedPlugins[$pluginName] = new Plugin($pluginName, ['active' => true]);
+        self::saveJsonFile();
+        return true;
+    }
+
+    public static function uninstallPlugin($pluginName)
+    {
+        $uninstallFile = PLUGINS_PATH . $pluginName . DS . 'uninstall.php';
+        if (is_file($uninstallFile)) {
+            include $uninstallFile;
+        }
+
+        unset(self::$installedPlugins[$pluginName]);
+        var_dump(self::$installedPlugins);
+        self::saveJsonFile();
+        return true;
+    }
+
+    public static function isInstalledPlugin($pluginName)
+    {
+        return isset(self::$installedPlugins[$pluginName]);
+    }
+
     /**
      * Get all Plugins Metas as an associative array, where key is plugin dirname
      *

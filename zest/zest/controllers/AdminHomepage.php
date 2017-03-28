@@ -26,12 +26,12 @@ class AdminHomepage extends \Zest\Core\AdminController
 
         $tpl = new Template('admin/articles_list.tpl');
         foreach ($articles as &$art) {
-            $art->edit_url   = $this->getZest()->getRootUrl() . 'admin/write/edit/' . $art->id;
-            $art->delete_url = $this->getZest()->getRootUrl() . 'admin/delete/' . $art->id;
+            $art->edit_url   = ROOT_URL . 'admin/write/edit/' . $art->id;
+            $art->delete_url = ROOT_URL . 'admin/delete/' . $art->id;
         }
         $tpl->set('articles', $articles);
 
-        $response->setTitle($this->site_config['title'] . ' : Administration');
+        $response->setTitle($this->config->get('site', 'title') . ' : Administration');
         $response->addTemplate($tpl);
         return $response;
     }
