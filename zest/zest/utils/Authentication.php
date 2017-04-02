@@ -18,7 +18,7 @@ class Authentication
 
     public static function getAdminPassword()
     {
-        return sha1(\Zest\Core\Zest::getInstance()->config->get('zest', 'password_salt') . \Zest\Core\Zest::getInstance()->config->get('zest', 'password'));
+        return \Zest\Core\Zest::getInstance()->config->get('zest', 'password');
     }
 
     public static function encodePassword($pass)

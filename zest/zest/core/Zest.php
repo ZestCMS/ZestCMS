@@ -41,6 +41,7 @@ class Zest
 
     /** @var \Zest\Core\Lang Lang Object */
     public $lang;
+    private $flashMessages = [];
 
     /**
      * Return Zest Instance
@@ -57,6 +58,7 @@ class Zest
     private function __construct()
     {
         session_start();
+        $this->flushFlashMessages();
         $this->config = new Configuration();
         define('ROOT_URL', $this->config->get('zest', 'url'));
 
@@ -119,6 +121,9 @@ class Zest
      */
     private function displayResponse($response)
     {
+        foreach ($this->flashMessages as $msg) {
+            $response->addFlashMessage($msg);
+        }
         echo $response->output();
     }
 
@@ -179,6 +184,29 @@ class Zest
     public function getSiteTitle()
     {
         return $this->config->get('site', 'title');
+    }
+
+    public function addFlashMsg($class, $content, $closable = true)
+    {
+        if (!isset($_SESSION['flash_msg']) || !is_array($_SESSION['flash_msg'])) {
+            $_SESSION['flash_msg'] = [];
+        }
+        $_SESSION['flash_msg'][] = [
+            'class'    => $class,
+            'content'  => $content,
+            'closable' => $closable
+        ];
+    }
+
+    private function flushFlashMessages()
+    {
+        if (!isset($_SESSION['flash_msg']) || !is_array($_SESSION['flash_msg'])) {
+            return;
+        }
+        foreach ($_SESSION['flash_msg'] as $msg) {
+            $this->flashMessages[] = new \Zest\Utils\Message(uniqid(), $msg['class'], $msg['content'], $msg['closable']);
+        }
+        unset($_SESSION['flash_msg']);
     }
 
 }

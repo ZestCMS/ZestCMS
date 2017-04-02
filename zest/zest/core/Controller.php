@@ -34,8 +34,8 @@ abstract class Controller
      */
     public function __construct()
     {
-        $this->config = $this->getZest()->config;
-        $this->lang   = $this->getZest()->lang;
+        $this->config = & $this->getZest()->config;
+        $this->lang   = & $this->getZest()->lang;
     }
 
     /**

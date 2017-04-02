@@ -1,9 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Config
+ *
+ * @author  Maxence CAUDERLIER
+ * @link    https://github.com/ZestCMS/ZestCMS
+ * @license http://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Zest\Controllers\Admin;
@@ -13,29 +15,30 @@ use Zest\Responses\Admin as AdminResponse,
     \Zest\Utils\Authentication as Authentication;
 
 /**
- * Description of Config
- *
- * @author Toss
+ * Config Controller is place to display and modify site's configuration
  */
 class Config extends \Zest\Core\AdminController
 {
 
+    /** @var \Zest\Templates\Template $tpl */
+    private $tpl;
+
     public function config()
     {
-        $response = new AdminResponse();
+        $response  = new AdminResponse();
         $response->setTitle('Configuration');
-        $tpl      = new Template('admin/config.tpl');
+        $this->tpl = new Template('admin/config.tpl');
 
         if (isset($_POST['save_config'])) {
             // Save configuration
             $this->postProcess();
         }
 
-        $tpl->set('sitename', $this->config->get('site', 'title'));
-        $tpl->set('articles_per_page', $this->config->get('site', 'articles_per_page'));
-        $tpl->set('date_format', $this->config->get('site', 'date_format'));
+        $this->tpl->set('sitename', $this->config->get('site', 'title'));
+        $this->tpl->set('articles_per_page', $this->config->get('site', 'articles_per_page'));
+        $this->tpl->set('date_format', $this->config->get('site', 'date_format'));
 
-        $response->addTemplate($tpl);
+        $response->addTemplate($this->tpl);
         return $response;
     }
 
@@ -54,13 +57,21 @@ class Config extends \Zest\Core\AdminController
                 }
                 else {
                     $errors = true;
+                    $this->tpl->addMessage('passwordsdiff', \Zest\Utils\Message::ERROR, 'The both passwords are differents');
                 }
             }
             else {
                 $errors = true;
+                $this->tpl->addMessage('wrong_pass', \Zest\Utils\Message::ERROR, 'Password is Wrong');
             }
         }
-        $this->config->save();
+        else {
+
+        }
+        if (!$errors) {
+            $this->config->save();
+            $this->tpl->addMessage('config_saved', \Zest\Utils\Message::SUCCESS, 'Config was saved', true);
+        }
     }
 
 }

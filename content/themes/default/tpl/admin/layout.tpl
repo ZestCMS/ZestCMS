@@ -27,6 +27,7 @@
             </header>
             <section id="content-wrapper">
                 <div id="content">
+                    {{FLASH_MESSAGES}}
                     {{content}}
                 </div>
             </section>
@@ -37,20 +38,6 @@
                 <a href="{{ROOT}}logout">{{LANG.logout}}</a>
             </div>
         </footer>
-        <script>
-            $('ul.menu').each(function () {
-                $(this).tendina();
-
-                // find menu items with children.
-                $(this).find('li').has('ul').addClass('has-menu');
-            });
-            $("#sidebar-toggle, #close-sidebar").click(function () {
-                $("#sidebar-wrapper").toggle("slow");
-            });
-
-            if (screen.width >= 1280) {
-                $("#sidebar-wrapper").show();
-            }
-        </script>
+        <script src="{{ROOT}}content/themes/default/js/admin.js"></script>
     </body>
 </html>

@@ -28,6 +28,9 @@ class Template
     /** @var array  Assigned datas to replace */
     protected $data = [];
 
+    /** @var array Assigned Messages */
+    protected $messages = [];
+
     /**
      * Constructor
      * Check if the template exist in the current theme, else template will be
@@ -70,6 +73,11 @@ class Template
     public function set($key, $value)
     {
         $this->data[$key] = $value;
+    }
+
+    public function addMessage($name, $class, $content, $closable = true)
+    {
+        $this->set($name, new \Zest\Utils\Message($name, $class, $content, $closable));
     }
 
     /**

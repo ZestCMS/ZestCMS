@@ -339,3 +339,18 @@ button:hover, a.button:hover {
 .fa-trash, a .fa-trash {
     color:red;
 }
+
+.msg {
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+}
+
+.msg .msg-button-close:after {
+    font:normal normal normal 1em FontAwesome;
+    content:'\f00d';
+    position: absolute;
+    top:6px;
+    right:10px;
+}

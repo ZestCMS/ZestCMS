@@ -21,7 +21,8 @@ class Site
     protected $title;
 
     /** @var array      Templates collection to display */
-    protected $tpl = [];
+    protected $tpl      = [];
+    protected $flashMsg = [];
 
     /**
      * Set the page title
@@ -50,12 +51,26 @@ class Site
     {
         $layout  = new \Zest\Templates\Template('layout.tpl');
         $layout->set('page_title', $this->title);
+        $layout  = $this->fillFlashMessages($layout);
         $content = '';
         foreach ($this->tpl as $tpl) {
             $content .= $tpl->output();
         }
         $layout->set('content', $content);
         return $layout->output();
+    }
+
+    public function addFlashMessage(\Zest\Utils\Message $message)
+    {
+        $this->flashMsg[$message->name] = $message;
+    }
+
+    protected function fillFlashMessages($layout)
+    {
+        $flashTpl = new \Zest\Templates\StringTemplate("{% for MSG in FLASH_MSG %} {{ MSG }} {% endfor %}");
+        $flashTpl->set('FLASH_MSG', $this->flashMsg);
+        $layout->set('FLASH_MESSAGES', $flashTpl->output());
+        return $layout;
     }
 
 }

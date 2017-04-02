@@ -1,4 +1,5 @@
 <form action='{{ROOT}}admin/config' method='POST'>
+    {{config_saved}}
     <fieldset>
         <legend>Site Config</legend>
         <div>
@@ -17,6 +18,7 @@
         
     <fieldset>
         <legend>Core Config</legend>
+            {{wrong_pass}}
         <div>
             <label for='original_password'>{{LANG.original_password}} :</label>
             <input type='password' name='original_password' id='original_password' />
@@ -25,6 +27,7 @@
             <label for='new_password'>{{LANG.new_password}} :</label>
             <input type='password' name='new_password' id='new_password' />
         </div>
+            {{passwordsdiff}}
         <div>
             <label for='repeat_password'>{{LANG.repeat_password}} :</label>
             <input type='password' name='repeat_password' id='repeat_password' />

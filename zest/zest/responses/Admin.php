@@ -26,6 +26,7 @@ class Admin extends Site
     {
         $layout  = new \Zest\Templates\Template('admin' . DS . 'layout.tpl');
         $layout->set('page_title', $this->title);
+        $layout  = $this->fillFlashMessages($layout);
         $content = '';
         foreach ($this->tpl as $tpl) {
             $content .= $tpl->output();

@@ -21,6 +21,7 @@
         </header>
         <section id="content-wrapper">
             <div id="content">
+                {{FLASH_MESSAGES}}
                 {{content}}
             </div>
         </section>

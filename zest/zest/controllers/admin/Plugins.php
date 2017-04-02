@@ -36,12 +36,14 @@ class Plugins extends \Zest\Core\AdminController
     public function disablePlugin($pluginName)
     {
         $disable = \Zest\Core\PluginsManager::disablePlugin($pluginName);
+        $this->getZest()->addFlashMsg(\Zest\Utils\Message::SUCCESS, $pluginName . $this->lang->now_unactive);
         $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
     }
 
     public function enablePlugin($pluginName)
     {
         $enable = \Zest\Core\PluginsManager::enablePlugin($pluginName);
+        $this->getZest()->addFlashMsg(\Zest\Utils\Message::SUCCESS, $pluginName . $this->lang->now_active);
         $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
     }
 
@@ -52,6 +54,7 @@ class Plugins extends \Zest\Core\AdminController
         }
 
         \Zest\Core\PluginsManager::installPlugin($pluginName);
+        $this->getZest()->addFlashMsg(\Zest\Utils\Message::SUCCESS, $pluginName . $this->lang->now_installed);
         $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
     }
 
@@ -62,6 +65,7 @@ class Plugins extends \Zest\Core\AdminController
         }
 
         \Zest\Core\PluginsManager::uninstallPlugin($pluginName);
+        $this->getZest()->addFlashMsg(\Zest\Utils\Message::SUCCESS, $pluginName . $this->lang->now_uninstalled);
         $this->getZest()->redirect(\Zest\Utils\URLBuilder::getURLAdminPluginsManagement());
     }
 

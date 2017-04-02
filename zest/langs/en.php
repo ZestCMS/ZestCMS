@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT The MIT License
  */
 return [
-// Commons
+    // Commons
     'homepage'                => 'Home page',
     'menu'                    => 'Menu',
     'delete'                  => 'Delete',
@@ -26,7 +26,7 @@ return [
     'sitename'                => 'Sitename',
     'articles_per_page'       => 'Articles per page',
     'date_format'             => 'Date format',
-// Articles
+    // Articles
     'articles_list'           => 'Articles list',
     'articles_confirm_delete' => 'Are you sure to want to delete this article ?',
     'articles_write_new'      => 'Write a new article',
@@ -47,4 +47,9 @@ return [
     // Errors
     'page_not_found_title'    => 'Page not found',
     'page_not_found_desc'     => 'Sorry, this page was not found. You might want to try the Home Page to find what you are looking for.',
+    //Themes, plugins
+    'now_installed'           => ' is now installed.',
+    'now_uninstalled'         => ' is now uninstalled.',
+    'now_active'              => ' is now active.',
+    'now_unactive'            => ' is now unactive.',
 ];
