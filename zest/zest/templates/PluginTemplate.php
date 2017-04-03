@@ -15,17 +15,18 @@ namespace Zest\Templates;
  */
 class PluginTemplate extends Template
 {
+
     public function __construct($pluginName, $file)
     {
-        $site_config = \Zest\Core\Zest::getInstance()->getSiteConfig();
-        $filename    = THEMES_PATH . $site_config['theme'] . DS . $pluginName . DS .'tpl' . DS . $file;
-        if (is_file($filename))
-        {
+        $config   = \Zest\Core\Zest::getInstance()->config;
+        $theme    = $config->get('site', 'theme');
+        $filename = THEMES_PATH . $theme . DS . $pluginName . DS . 'tpl' . DS . $file;
+        if (is_file($filename)) {
             $this->file = $filename;
         }
-        else
-        {
+        else {
             $this->file = PLUGINS_PATH . $pluginName . DS . 'tpl' . DS . $file;
         }
     }
+
 }

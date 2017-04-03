@@ -133,6 +133,7 @@ class Zest
     private function initGlobals()
     {
         \Zest\Templates\Template::addGlobal('ROOT', $this->config->get('zest', 'url'));
+        \Zest\Templates\Template::addGlobal('THEME', $this->config->get('site', 'theme'));
         \Zest\Templates\Template::addGlobal('SITENAME', $this->config->get('site', 'title'));
         \Zest\Templates\Template::addGlobal('LANG', $this->lang->getAllLanguagesDatas());
         if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {

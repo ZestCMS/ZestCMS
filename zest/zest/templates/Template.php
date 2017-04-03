@@ -47,7 +47,7 @@ class Template
             $this->file = $filename;
         }
         else {
-            $this->file = THEMES_PATH . 'default' . DS . $file;
+            $this->file = CORE_PATH . 'zest' . DS . 'tpl' . DS . $file;
         }
     }
 
