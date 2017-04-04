@@ -23,7 +23,7 @@ class Errors extends \Zest\Core\Controller
     {
         $tpl      = new Template('404.tpl');
         $response = new SiteResponse();
-        $response->setTitle($this->site_config['title'] . ' : Page not found');
+        $response->setTitle($this->config->get('site', 'title') . ' : Page not found');
         $response->addTemplate($tpl);
         return $response;
     }
