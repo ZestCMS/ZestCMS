@@ -114,7 +114,8 @@ class PluginsManager
             return self::$plugins;
         }
         $dirsPlugins = array_filter(glob(PLUGINS_PATH . '*'), 'is_dir');
-        $metas       = self::getPluginsMetas();
+
+        $metas = self::getPluginsMetas();
         foreach ($dirsPlugins as $dir) {
             $parts         = explode(DS, $dir);
             $pluginDirName = $parts[count($parts) - 1];
@@ -125,7 +126,11 @@ class PluginsManager
             else {
                 $plugin = new Plugin($pluginDirName);
             }
-            self::$plugins[$pluginDirName] = & $plugin;
+
+            if ($plugin->isValid()) {
+                $plugin->setInfosFromIniFile();
+                self::$plugins[$pluginDirName] = $plugin;
+            }
         }
         return self::$plugins;
     }

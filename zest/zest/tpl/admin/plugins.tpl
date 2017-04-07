@@ -1,12 +1,16 @@
 {% FOR plugin IN plugins %}
-    {% if plugin.isInstalled %}
-        {% if plugin.isActive %}
-            {{plugin.getName}} | <a href="{{plugin.getUnactiveUrl}}" class="button">{{LANG.disable}}</a>
+    <div class="block full">
+        <h3><a href="{{plugin.author_url}}">{{plugin.name}}</a></h3>
+        <p>{{plugin.description}}</p>
+        <span><a href="mailto:{{plugin.author_mail}}">{{plugin.author}}</a></span>
+        {% if plugin.isInstalled %}
+            {% if plugin.isActive %}
+                <span><a href="{{plugin.getUnactiveUrl}}" class="button">{{LANG.disable}}</a></span>
+            {% else %}
+                <span><a href="{{plugin.getActiveUrl}}" class="button">{{LANG.enable}}</a></span><span><a href="{{plugin.getUninstallUrl}}" class="button">{{LANG.uninstall}}</a></span>
+            {% endif %}
         {% else %}
-            {{plugin.getName}} | <a href="{{plugin.getActiveUrl}}" class="button">{{LANG.enable}}</a> | <a href="{{plugin.getUninstallUrl}}" class="button">{{LANG.uninstall}}</a>
+                <span><a href="{{plugin.getInstallUrl}}" class="button">{{LANG.install}}</a></span>
         {% endif %}
-    {% else %}
-            {{plugin.getName}} | <a href="{{plugin.getInstallUrl}}" class="button">{{LANG.install}}</a>
-    {% endif %}
-
+    </div>
 {% endfor %}

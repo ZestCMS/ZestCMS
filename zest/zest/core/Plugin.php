@@ -16,6 +16,12 @@ namespace Zest\Core;
 class Plugin implements \JsonSerializable
 {
 
+    public $name;
+    public $author;
+    public $author_mail;
+    public $author_url;
+    public $version;
+    public $description;
     protected $pluginName;
     protected $pluginPath;
     protected $options = [];
@@ -29,6 +35,22 @@ class Plugin implements \JsonSerializable
         foreach ($values as $key => $value) {
             $this->options[$key] = $value;
         }
+    }
+
+    public function setInfosFromIniFile()
+    {
+        $infos             = parse_ini_file($this->pluginPath . 'info.ini');
+        $this->name        = $infos['name'];
+        $this->author      = $infos['author'];
+        $this->author_mail = $infos['author_mail'];
+        $this->author_url  = $infos['author_url'];
+        $this->version     = $infos['version'];
+        $this->description = $infos['description'];
+    }
+
+    public function isValid()
+    {
+        return (is_file($this->pluginPath . 'info.ini') && is_file($this->pluginPath . $this->pluginName . '.php'));
     }
 
     public function load()
