@@ -13,15 +13,16 @@
 define('CORE_PATH', 'zest' . DIRECTORY_SEPARATOR);
 
 /**
- * Content directory
+ * Public directory
  * All content will be accessible by direct access
+ * Best is to put only it in the www directory
  */
-define('CONTENT_PATH', 'content' . DIRECTORY_SEPARATOR);
+define('CONTENT_PATH', 'public' . DIRECTORY_SEPARATOR);
 
 /**
  * Themes directory
  */
-define('THEMES_PATH', CONTENT_PATH . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR);
+define('THEMES_PATH', CONTENT_PATH . 'themes' . DIRECTORY_SEPARATOR);
 
 
 /* ------------------------------------
