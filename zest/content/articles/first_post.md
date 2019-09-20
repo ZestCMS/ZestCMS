@@ -10,7 +10,7 @@ Now, you have to edit `zest/config.ini` file, at this line :
 
 `url = http://localhost/zestnew/`
 
-and change this url by yours. Do not forget end trailing slash.
+and change this url by yohurs. Do not forget end trailing slash.
 
 That's all ! Your blog is now configurated !
 
