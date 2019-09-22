@@ -348,10 +348,24 @@ button:hover, a.button:hover {
 }
 
 .msg {
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius: 3px;
+    padding:5px 30px 5px 5px;
+    border-radius: 0.28em;
     position: relative;
+    color:#666;
+    display: flex;
+}
+
+.msg p {
+    display: flex;
+    align-items: center;
+}
+
+.msg:before {
+    font:normal normal normal 3em FontAwesome;
+    content:'\f00d';
+    display: flex;
+    align-items: center;
+    margin: 5px;
 }
 
 .msg .msg-button-close:after {
@@ -360,4 +374,13 @@ button:hover, a.button:hover {
     position: absolute;
     top:6px;
     right:10px;
+}
+
+.msg.success {
+    background:#e9ffd9;
+    border:1px solid #a6ca8a;
+}
+
+.msg.success:before {
+    color:#a6ca8a;
 }

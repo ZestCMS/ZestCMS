@@ -21,6 +21,8 @@ class Admin extends Site
 
     /**
      * Display the response
+     * 
+     * @return string Content of all tpl added
      */
     public function output()
     {
