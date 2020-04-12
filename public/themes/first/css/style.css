@@ -8,6 +8,8 @@ and open the template in the editor.
     Author     : Toss
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto+Slab:wght@700&family=Roboto:wght@400;700&display=swap');
+
 * {
     box-sizing: border-box;
 }
@@ -27,8 +29,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 html {display: flex; flex-direction: column;}
 
 body {
-    background-color: #eee;
-    font : 14px/1.8em 'Open Sans', Helvetica, Arial, Helvetica, sans-serif;
+    background-color: #f2f2f2;
+    font : 110%/1.8em 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -43,42 +45,86 @@ body {
     flex-direction: row; /* affichage horizontal */
 }
 #header-wrapper {
-    background-color: #444;
+    background-image: url("../img/mountains.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #fff;
-    padding: 15px;
+    padding: 60px;
     margin:0;
 }
 
 #header {
-    max-width: 1080px;
+    width:1400px;
+    max-width: 90%;
     margin: 0 auto;
+    text-align: center;
 }
 
 #header a {
     color:#fff;
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    text-shadow:0 0 5px rgba(0,0,0,0.5);
+}
+
+#header a:hover {
+    color: #13C4A5;
+}
+
+
+#main-nav-wrapper {
+    background-color: #333;
+    color:#FFF;
+    padding:20px;
+}
+
+#main-nav {
+    width:1400px;
+    max-width: 90%;
+    margin: 0 auto;
+    font-family: 'Roboto Slab', serif;
+    text-transform: uppercase;
+    font-size:1.05em;
+    letter-spacing: 0.05em;
+}
+
+#main-nav a {
+    color: #999;
+    padding:25px;
+}
+
+#main-nav a:hover {
+    color: #fff;
 }
 
 #content-wrapper {
     display: block; /* IE fix */
     flex: 1; /* occupe la largeur restante */
+    padding: 50px 0;
 }
 
 #content {
-    max-width: 1080px;
+    width:1400px;
+    max-width: 90%;
     margin: 0 auto;
     background-color: #fff;
+    color: #444;
     padding:25px;
+    border-radius: 3px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1)
 }
 
 #footer-wrapper {
-    background-color: #444;
+    background-color: #333;
     color: #fff;
     padding: 15px;
     margin:0;
 }
 
 #footer {
-    max-width: 1080px;
+    width:1400px;
+    max-width: 90%;
     margin: 0 auto;
 }
 
@@ -105,10 +151,6 @@ body {
     z-index: 1;
 }
 
-#content-wrapper {
-    display: block; /* IE fix */
-    flex: 1; /* occupe la largeur restante */
-}
 pre {
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -119,7 +161,7 @@ img {
     overflow: hidden;
 }
 
-a, a:visited {
+a {
     color: #2EAE9B;
     text-decoration: none;
     -webkit-transition: all 0.2s linear;
@@ -136,9 +178,18 @@ a:hover, a:active {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #000;
+    color: #444;
     line-height: 1.2em;
     margin: 0.6em;
+}
+
+h1, h2, h3, h1 > a, h2 > a, h3 > a {
+    font-family: 'Roboto Slab', serif;
+    color:#2C3643;
+}
+
+h1 > a:hover, h2 > a:hover, h3 > a:hover {
+    color: #2EAE9B;
 }
 
 h1 {

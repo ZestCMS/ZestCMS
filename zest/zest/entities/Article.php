@@ -27,6 +27,12 @@ class Article implements \JsonSerializable
      * @var string
      */
     public $content;
+    
+    /**
+     * Truncated Article Content
+     * @var string
+     */
+    public $truncated_content;
 
     /**
      * Article Title
@@ -86,6 +92,7 @@ class Article implements \JsonSerializable
             $this->htmlContent = \Zest\Core\Zest::getInstance()->getParser()->parse($this->content);
         }
         $this->url = ROOT_URL . 'articles/' . $this->encoded_title;
+        $this->truncated_content = $this->buildTruncatedContent($this->htmlContent);
     }
 
     /**
@@ -120,6 +127,19 @@ class Article implements \JsonSerializable
             $this->id = \Zest\Managers\Articles::getMaxID() + 1;
         }
         \Zest\Managers\Articles::saveArticle($this);
+    }
+    
+    /**
+     * Build a truncated content of an article HTML content
+     * 
+     * @param   string $content
+     * @return  string
+     */
+    protected function buildTruncatedContent($content)
+    {
+        $truncate = \Zest\Utils\ArticleHelper::truncate_content($content, 100);
+        return $truncate . '...' . '<br/><a href="'. $this->url . '">' . 
+                \Zest\Core\Zest::getInstance()->lang->continue_reading . '</a>';
     }
 
 }

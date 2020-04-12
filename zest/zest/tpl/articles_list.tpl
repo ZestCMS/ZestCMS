@@ -1,9 +1,11 @@
 {%FOR article IN articles %}
-<div class="article">
-    <h2><a href="{{article.url}}">{{article.title}}</a></h2>
+<article class="article">
+    <header>
+    <h1><a href="{{article.url}}">{{article.title}}</a></h1>
         {{article.date}}
+    </header>
     <div class="article-content">
-        {{article.htmlContent}}
+        {{article.truncated_content}}
     </div>
-</div>
+</article>
 {%ENDFOR%}
