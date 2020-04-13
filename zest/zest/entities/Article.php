@@ -137,7 +137,7 @@ class Article implements \JsonSerializable
      */
     protected function buildTruncatedContent($content)
     {
-        $truncate = \Zest\Utils\ArticleHelper::truncate_content($content, 100);
+        $truncate = \Zest\Utils\ArticleHelper::truncate_content($content, 200);
         return $truncate . '...' . '<br/><a href="'. $this->url . '">' . 
                 \Zest\Core\Zest::getInstance()->lang->continue_reading . '</a>';
     }

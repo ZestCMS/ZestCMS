@@ -24,8 +24,6 @@
                 <a href="{{ROOT}}">Home</a>
             </nav>
         </div>
-        
-        
         <section id="content-wrapper">
             <div id="content">
                 {{FLASH_MESSAGES}}

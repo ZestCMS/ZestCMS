@@ -32,7 +32,7 @@ return [
     'articles_write_new'      => 'Write a new article',
     'pagination_olders'       => 'Olders Articles',
     'pagination_newers'       => 'Newers Articles',
-    'continue_reading'        => 'Read more',
+    'continue_reading'        => 'Read more...',
     // User
     'login'                   => 'Login',
     'logout'                  => 'Logout',

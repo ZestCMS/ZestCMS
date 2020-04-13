@@ -108,11 +108,6 @@ body {
     width:1400px;
     max-width: 90%;
     margin: 0 auto;
-    background-color: #fff;
-    color: #444;
-    padding:25px;
-    border-radius: 3px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.1)
 }
 
 #footer-wrapper {
@@ -344,4 +339,45 @@ button:hover, a.button:hover {
     width:20%;
     margin: 10px 2%;
     border:2px solid #999;
+}
+
+.articles-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.articles-list > article {
+    width:30%;
+    margin: 15px 1.6%;
+}
+
+#content article.article {
+    background-color: #fff;
+    color: #444;
+    padding:0;
+    border-radius: 3px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+
+article.article > header {
+    border-bottom:1px solid #eee;
+    padding:15px;
+}
+
+article.article .article-content {
+    padding:15px;
+}
+
+@media screen and (max-width: 720px) {
+  .articles-list > article {
+    width:100%;
+    margin: 10px 0;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1080px) {
+  .articles-list > article {
+    width:47%;
+    margin: 15px 1.5%;
+  }
 }

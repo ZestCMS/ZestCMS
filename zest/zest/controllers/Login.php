@@ -24,13 +24,13 @@ class Login extends \Zest\Core\Controller
     {
         if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
             // Already logged
-            header('Location: ' . ROOT_URL . 'admin');
+            header('Location: ' . \Zest\Utils\URLBuilder::getURLAdminHomePage());
             exit();
         }
         if (isset($_POST['login'])) {
             if (Authentication::isPasswordAdmin($_POST['password'])) {
                 $_SESSION['is_admin'] = true;
-                header('Location: ' . ROOT_URL . 'admin');
+                header('Location: ' . \Zest\Utils\URLBuilder::getURLAdminHomePage());
                 exit();
             }
         }
