@@ -12,15 +12,15 @@
     $(document).ready(function () {
         $("#{{ID}}_linkpreview").click(function () {
             $.post(
-                    '{{ROOT}}admin/write/getpreview',
-                    {
-                        editor_preview: $("textarea#{{ID}}content").val()
-                    },
-                    function (data) {
-                        $("#{{ID}}preview").html(data);
-                    },
-                    'text'
-                    );
+                '{{ROOT}}admin/write/getpreview',
+                {
+                    editor_preview: $("textarea#{{ID}}content").val()
+                },
+                function (data) {
+                    $("#{{ID}}preview").html(data);
+                },
+                'text'
+            );
         });
     });
 </script>

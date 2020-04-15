@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT The MIT License
  */
 
-namespace Zest\Controllers;
+namespace Zest\Controllers\Admin;
 
 use Zest\Templates\Template as Template,
     Zest\Templates\StringTemplate as StringTemplate,
@@ -18,7 +18,7 @@ use Zest\Templates\Template as Template,
 /**
  * Write, edit and delete articles
  */
-class AdminWrite extends \Zest\Core\AdminController
+class Write extends \Zest\Core\AdminController
 {
     public function new_article()
     {
@@ -34,14 +34,17 @@ class AdminWrite extends \Zest\Core\AdminController
             $art->hydrateByArray($_POST);
             if ($art->isValid())
             {
-                if(!\Zest\Managers\Articles::getArticleByEncodedTitle($art->encoded_title) || $_POST['id'] !== '')
+                if(!\Zest\Managers\Articles::getArticleByEncodedTitle($art->encoded_title) || ($_POST['id'] !== '' && $_POST['id'] ===  $art->id))
                 {
                     // Encoded title is not already used or Article isnt a new
                     $art->save();
+                    $this->getZest()->addFlashMsg(\Zest\Utils\Message::SUCCESS, $this->lang->article_saved);
                     header('Location:' . $art->url);
                     exit();
                 }
-                $tpl->set('error', 'URL Article is already used');
+                $tpl->set('error', $this->lang->article_url_already_use);
+                $this->getZest()->addImmediateMsg(\Zest\Utils\Message::ERROR, $this->lang->article_url_already_use);
+                
             }
             $tpl->set('article', $art);
             
@@ -105,7 +108,7 @@ class AdminWrite extends \Zest\Core\AdminController
     public function deleteArticle($id)
     {
         \Zest\Managers\Articles::deleteArticle($id);
-        $Controller = new AdminHomepage();
+        $Controller = new Homepage();
         
         return $Controller->allArticles();
     }

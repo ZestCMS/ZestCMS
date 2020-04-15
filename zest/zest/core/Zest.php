@@ -199,6 +199,18 @@ class Zest
             'closable' => $closable
         ];
     }
+    
+    /**
+     * @todo A supprimer, mettre dans response
+     * 
+     * @param type $class
+     * @param type $content
+     * @param type $closable
+     */
+    public function addImmediateMsg($class, $content, $closable = true)
+    {
+        $this->flashMessages[] = new \Zest\Utils\Message(uniqid(), $class, $content, $closable);
+    }
 
     private function flushFlashMessages()
     {

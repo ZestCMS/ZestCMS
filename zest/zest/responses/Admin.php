@@ -55,9 +55,6 @@ class Admin extends Site
 
     private function buildCoreItems(\Zest\Menus\Menu $menu)
     {
-        $menu->addItem('Close Sidebar', [
-            'url' => 'javascript:void(0)',
-            'id'  => 'close-sidebar'], 1);
         $menu->addItem('Go to Site', [
             'url' => ROOT_URL], 5);
         $articles = $menu->addItem('Articles', [

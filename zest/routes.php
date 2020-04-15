@@ -18,15 +18,15 @@ return [
     '/login'                                  => ['Zest\Controllers\Login', 'login'],
     '/logout'                                 => ['Zest\Controllers\Login', 'logout'],
     // Admin Homepage
-    '/admin'                                  => ['Zest\Controllers\AdminHomepage', 'allArticles'],
+    '/admin'                                  => ['Zest\Controllers\Admin\Homepage', 'allArticles'],
     // Articles List
-    '/admin/articles'                         => ['Zest\Controllers\AdminHomepage', 'allArticles'],
+    '/admin/articles'                         => ['Zest\Controllers\Admin\Homepage', 'allArticles'],
     // Edit articles
-    '/admin/write'                            => ['Zest\Controllers\AdminWrite', 'new_article'],
-    '/admin/write/getencodedtitle'            => ['Zest\Controllers\AdminWrite', 'getEncodedTitle'],
-    '/admin/write/getpreview'                 => ['Zest\Controllers\AdminWrite', 'getPreview'],
-    '/admin/write/edit/<#id>'                 => ['Zest\Controllers\AdminWrite', 'edit_article'],
-    '/admin/delete/<#id>'                     => ['Zest\Controllers\AdminWrite', 'deleteArticle'],
+    '/admin/write'                            => ['Zest\Controllers\Admin\Write', 'new_article'],
+    '/admin/write/getencodedtitle'            => ['Zest\Controllers\Admin\Write', 'getEncodedTitle'],
+    '/admin/write/getpreview'                 => ['Zest\Controllers\Admin\Write', 'getPreview'],
+    '/admin/write/edit/<#id>'                 => ['Zest\Controllers\Admin\Write', 'edit_article'],
+    '/admin/delete/<#id>'                     => ['Zest\Controllers\Admin\Write', 'deleteArticle'],
     // Read a specified article by its encoded title
     '/articles/<:article_name>'               => ['Zest\Controllers\Articles', 'viewArticle', 999],
     // Plugins

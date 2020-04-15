@@ -1,22 +1,25 @@
 <p>{{error}}</p>
 <form action='{{ROOT}}admin/write' method='POST'>
-    <div>
-        <label for='title'>{{LANG.title}} :</label>
-        <input type='text' name='title' id='title' value="{{article.title}}" required/>
-    </div>
-    <div>
-        <label for='encoded_title'>{{LANG.url}} : {{ROOT}}articles/</label>
-        <input type='text' name='encoded_title' id='encoded_title' value="{{article.encoded_title}}" required/>
-    </div>
-    <div>
-        {{EDITOR.output}}
-    </div>
-    <input type="hidden" name="id" value="{{article.id}}" />
-    <input type="hidden" name="creation" value="{{article.creation}}" />
-    <div class="buttons">
-        <button type='submit' name="save_article">{{LANG.form_submit}}</button>
-        <button type="reset">{{LANG.form_reset}}</button>
-    </div>
+    <fieldset>
+        <legend>Article</legend>
+        <div>
+            <label for='title'>{{LANG.title}} :</label>
+            <input type='text' name='title' id='title' value="{{article.title}}" required/>
+        </div>
+        <div>
+            <label for='encoded_title'>{{LANG.url}} : {{ROOT}}articles/</label>
+            <input type='text' name='encoded_title' id='encoded_title' value="{{article.encoded_title}}" required/>
+        </div>
+        <div>
+            {{EDITOR.output}}
+        </div>
+        <input type="hidden" name="id" value="{{article.id}}" />
+        <input type="hidden" name="creation" value="{{article.creation}}" />
+        <div class="buttons">
+            <button type='submit' name="save_article">{{LANG.form_submit}}</button>
+            <button type="reset">{{LANG.form_reset}}</button>
+        </div>
+    </fieldset>
 </form>
 
 <script>
